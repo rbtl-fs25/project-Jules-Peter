@@ -1,26 +1,40 @@
 ---
-title: "index"
+title: "Analysis of fungal isolates on faeces"
 format: html
+author: "Jules Peter"
 editor: visual
 ---
 
-## Quarto
+## Fungal treatment of faeces
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+This file is used for analysing the data collected on the fungal performance on faeceal samples comparing growth speed and antibacterial potential.
 
-## Running Code
+## Growth speed analysis
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+This section will compare growth speed between different fungal isolates.
 
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
+Making a boxplot
 
 ```{r}
-#| echo: false
-2 * 2
+
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+This section will compare growth speed between replicates of the same species
+
+```{r}
+
+```
+
+This section will compare growth speed of good growing isolates depending on the used inoculum.
+
+```{r}
+
+```
+
+## Bacterial analysis
+
+This section will compare the influence of fungal co-incubation on E. coli and Enterococcus.
+
+```{r}
+
+```
