@@ -13,28 +13,117 @@ This file is used for analysing the data collected on the fungal performance on 
 
 This section will compare growth speed between different fungal isolates.
 
-Making a boxplot
+Making a boxplot comparing fungal growth between species
 
 ```{r}
 
+
+ggplot(growthspeed_analysis)
 ```
 
-This section will compare growth speed between replicates of the same species
+Make analysis of normality using Q-Q plot and Shapiro-Wilk test.
 
 ```{r}
 
+#create Q-Q plot to compare this dataset to a theoretical normal distribution 
+qqnorm(model$residuals)
+#add straight diagonal line to plot
+qqline(model$residuals)
+
+#Conduct Shapiro-Wilk Test for normality 
+shapiro.test(data$weight_loss)
+
+#Shapiro-Wilk normality test
+#
+#data:  data$weight_loss
+#W= 0.9587 p-value = 0.05 <-alpha level has to be >0.05 to be normally distributed
 ```
 
-This section will compare growth speed of good growing isolates depending on the used inoculum.
+If data is normaly distributed test for equal variance.
+
+Creating a box plot to visually testing
+
+do Bartlett's test
 
 ```{r}
+boxplot(weight_loss ~ program, xlab='Program',
+        ylab='Weight Loss',
+        data=data)
 
+#Create box plots that show distribution of weight loss for each group
+bartlett.test(weight_loss ~ program, data=data)
+
+#Bartlett test of homogeneity of variances
+#
+#data:  weight_loss by program
+#Bartlett's K-squared = 8.2713, df = 2, p-value = 0.01599
 ```
+
+If not continue with Kruskal-Wallis Test
+
+???
 
 ## Bacterial analysis
 
-This section will compare the influence of fungal co-incubation on E. coli and Enterococcus.
+This section will compare the influence of the co-cincubated species on the concentration of E. coli and Enterococcus.
+
+To compare bacterial reduction potential for the fungal species with varying initial bacterial concentrations (0dpi) a method that accounts for baseline differences is needed. isolating the fungal species' effects. Here's a step-by-step approach:
+
+### **1. Data Normalization**
+
+Each replicate has a different initial CFU to compare the different replicates calculate the **log reduction** for each replicate to standardize results:
+
+Log Reduction=log⁡10(CFU at 0 dpi / CFU at 14 dpi)
+
+### **2. Statistical Analysis**
+
+#### **Primary Test: ANCOVA (Analysis of Covariance)**
+
+-   ANCOVA accounts for the initial CFU (covariate) while testing for differences in log reduction between fungal species.
+
+-    This isolates the fungal species' impact on bacterial reduction.
+
+    **Assumptions**:
+
+-   Linearity between covariate (initial CFU) and dependent variable (log reduction)
+
+-   Homogeneity of regression slopes (test with interaction term)
+
+-   Normality and equal variance of residuals.
+
+If no linearity between the covariant(initial CFU) and the dependent variable (log reduction)
 
 ```{r}
 
+# Example code for testing for linearity
+library(ggplot2)
+
+# Assuming your data frame is called 'data', with columns 'initial_CFU' and 'reduction'
+ggplot(data, aes(x = initial_CFU, y = reduction)) +
+  geom_point() +  # Scatter plot
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  # Add linear regression line
+  theme_minimal() +
+  labs(title = "Scatter Plot of Initial CFU vs. Reduction",
+       x = "Initial CFU",
+       y = "Bacterial Reduction")
+
+# Fit for a linear model between the covaraint and the variable
+model <- lm(reduction ~ initial_CFU, data = data)
+
+# Summarize the model
+summary(model)
+
+```
+
+MAking a boxplot showing the log change for each species
+
+```{r}
+
+ggplot(data=bacterial_analysis)+
+  mapping=aes(x=species, y=log_change)+
+  geom_boxplot()+
+  labels(title= "Log reduction of E. coli for different species",
+         x="Species",
+         y="log_change",
+         caption="log change for bacteria according to fungal species co-incubation")
 ```
