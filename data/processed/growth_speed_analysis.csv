@@ -1,0 +1,19 @@
+species,material,inoculum_age,mean_growth_speed
+ctrl,corn cobs,18,0
+P. ostreatus,corn cobs,18,0.9444444444444444
+C. comatus,corn cobs,18,0.7777777777777778
+ctrl,corn cobs,31,NA
+P. ostreatus,corn cobs,31,NA
+C. comatus,corn cobs,31,NA
+ctrl,corn cobs,38,NA
+P. ostreatus,corn cobs,38,NA
+C. comatus,corn cobs,38,NA
+ctrl,corn cobs,45,NA
+P. ostreatus,corn cobs,45,NA
+C. comatus,corn cobs,45,NA
+ctrl,corn cobs,48,NA
+P. ostreatus,corn cobs,48,NA
+C. comatus,corn cobs,48,NA
+ctrl,corn cobs,59,NA
+P. ostreatus,corn cobs,59,NA
+C. comatus,corn cobs,59,NA

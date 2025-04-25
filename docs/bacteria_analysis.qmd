@@ -32,7 +32,7 @@ knitr::opts_knit$set(root.dir = ("../data"))
 bacteria_analysis<-read.csv("../data/processed/bacteria_analysis.csv")
 ```
 
-### Testing data for E. coli log change for normal distribution
+### Testing E. coli log change for normal distribution for each species
 
 ```{r}
 #| echo: false
@@ -44,7 +44,9 @@ ecoli_log <- bacteria_analysis|>
 shapiro_ecoli <- ecoli_log |>
   group_by(species)|>
   shapiro_test(log_change_ecoli)
-print(shapiro_ecoli)
+
+shapiro_ecoli|>
+  gt()
 
 ###qq-plot for each species 
 ggplot(ecoli_log, aes(sample = `log_change_ecoli`)) +
@@ -54,7 +56,7 @@ ggplot(ecoli_log, aes(sample = `log_change_ecoli`)) +
 
 ```
 
-### Testing data of Enterococcus for normal distribution
+### Testing Enterococcus log change for normal distribution for each species
 
 ```{r}
 #| echo: false
@@ -65,7 +67,9 @@ enterococcus_log <- bacteria_analysis|>
 shapiro_enterococcus <- enterococcus_log |>
   group_by(species)|>
   shapiro_test(log_change_enterococcus)
-print(shapiro_enterococcus)
+
+shapiro_enterococcus|>
+  gt()
 
 ###qq-plot for each species 
 ggplot(enterococcus_log, aes(sample = `log_change_enterococcus`)) +
@@ -79,11 +83,10 @@ ggplot(enterococcus_log, aes(sample = `log_change_enterococcus`)) +
 ```{r}
 #| echo: false
 
-
 ecoli_anova <- ecoli_log |>
   anova_test(log_change_ecoli ~ species)  
-ecoli_anova
-
+ecoli_anova|>
+  gt()
 ```
 
 ### Tukey-Test E. coli
@@ -93,19 +96,15 @@ ecoli_anova
 
 tukey_results <- ecoli_log |>
   tukey_hsd(log_change_ecoli ~ species)
-tukey_results
-
-ibrary(rstatix)
-library(flextable)
 
 # Add significance symbols/letters
 tukey_results_formatted <- tukey_results |>
 add_significance("p.adj") |>
   mutate(p.adj = scales::pvalue(p.adj))
 
+tukey_results_formatted|>
+  gt()
 ```
-
-tukey_results \<- ecoli_log \|\> tukey_hsd(log_change_ecoli \~ species) tukey_results
 
 ### Anova test for Enterococcus
 
@@ -114,7 +113,8 @@ tukey_results \<- ecoli_log \|\> tukey_hsd(log_change_ecoli \~ species) tukey_re
 
 enterococcus_anova <- enterococcus_log |>
   anova_test(log_change_enterococcus ~ species)  
-enterococcus_anova
+enterococcus_anova|>
+  gt()
 
 ```
 
@@ -125,7 +125,8 @@ enterococcus_anova
 
 tukey_results <- enterococcus_log |>
   tukey_hsd(log_change_enterococcus ~ species)
-tukey_results
+tukey_results|>
+  gt()
 ```
 
 ## Showing significance in table
@@ -193,7 +194,7 @@ ggplot(log_change_both, aes(x = species, y = log_change, fill = bacteria)) +
     title = "Log Change Comparison by Species"
   ) +
   scale_fill_manual(
-    values = c("log_change_ecoli" = "steelblue", "log_change_enterococcus" = "coral"),
+    values = c("log_change_ecoli" = "purple", "log_change_enterococcus" = "coral"),
     labels = c("E. coli", "Enterococcus")
   ) +
   theme_minimal()
@@ -207,4 +208,4 @@ ggplot(log_change_both, aes(x = species, y = log_change)) +
   
 ```
 
-## 
+## Analysis how susbtrate is influencing the Bacteria log-change
