@@ -129,30 +129,7 @@ tukey_results|>
   gt()
 ```
 
-## Showing significance in table
-
-```{r}
-#| echo: false
-# Fit ANOVA model
-
-enterococcus_anova<- aov(log_change_enterococcus ~ species, data = bacteria_analysis)
-
-# Create APA-style table
-tidy(enterococcus_anova) %>%
-  flextable() %>%
-  set_caption("ANOVA Results") %>%
-  theme_apa() %>%  # Optional APA styling
-  autofit() %>%
-  print()  # Explicitly render the table
-
-tukey_results <- TukeyHSD(enterococcus_anova)
-print(tukey_results)
-# Convert to clean table
-
-# Display as formatted table
-
-
-```
+## 
 
 ## box plots
 

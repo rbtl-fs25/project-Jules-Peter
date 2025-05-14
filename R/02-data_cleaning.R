@@ -3,8 +3,6 @@
 #Calculate growth speed per day
 # Calculate growth per day
 
-install.packages("tidyverse")
-install.packages("googlesheets4")
 library("tidyverse")
 library("googlesheets4")
 
@@ -22,6 +20,7 @@ growth_speed_transformed <- growth_speed_1_1 |>
 
 ### change from area size per day to area size difference per day
 # Define the column names to select (as characters because they start with numbers)
+#To calculate difference between the time point, create two vectors to calculate the difference between days to select
 current_day_cols <- as.character(1:9)
 previous_day_cols <- as.character(0:8)
 
@@ -65,26 +64,32 @@ growth_speed_analysis_long <- exp_growth_speed_inoculum_faeces |>
   # Extract the numeric part from the time_period column for the x-axis
   mutate(
     time_step = parse_number(time_period) # Extracts number (1 from "diff_1", etc.)
-  )
+  )|>
+group_by(species)|>  # Group by species
+  summarise(mean_diff_values = mean(parse_number(time_period), na.rm = TRUE), # Calculate the mean
+            sd_diff_values = sd(parse_number(time_period), na.rm = TRUE)) # Calculate the standard deviation
 
-#### select for relevant coloumns for tables for analysis
-###exp_growth_speed_inoculum_faeces_long for time curve of growth
-glimpse(exp_growth_speed_inoculum_faeces_long)
 
 ### For mean growth speed and dependence on incoulum age and substrate 
 growth_speed_analysis <- exp_growth_speed_inoculum_faeces|>
   select(species, material, inoculum_age, mean_growth_speed)
 glimpse(growth_speed_analysis)
 
+
+
+# The resulting dataframe 'your_summary_data' will have columns for:
+# - species
+# - mean_growthspeed
+# - sd_growthspeed
+
+# You can view the new dataframe
+print(your_summary_data)
+
 ### Save growth speed as csv in processed
 write_csv(growth_speed_analysis, "data/processed/growth_speed_analysis.csv")  
 write_csv(growth_speed_analysis_long, "data/processed/growth_speed_analysis_long.csv")
 
-# Display the plot
-print(time_curve_plot)
-
 ############ Preparing tables for bacterial analysis ###############
-
 bacteria_conc <- bacteria_1_1|>
   mutate(cfu_ecoli_end = ecoli_counted*dilution_ecoli/sample_weight)|>
   mutate(cfu_enterococcus_end = enterococcus_counted*dilution_enterococcus/sample_weight)
@@ -99,7 +104,7 @@ bacteria_joined <-left_join(bacteria_exp_faeces, inoculum_1_1)
 
 ### Select for relevant coloumns
 bacteria_selected <- bacteria_joined |>
-  select(id_treatment, species, cfu_ecoli_end, cfu_enterococcus_end, cfu_ecoli_start, cfu_enterococcus_start )
+  select(id_treatment, species, cfu_ecoli_end, cfu_enterococcus_end, cfu_ecoli_start, cfu_enterococcus_start)
 
 ###Calculate log-change for each treatment
 bacteria_analysis <- bacteria_selected|>
@@ -111,3 +116,4 @@ glimpse(bacteria_analysis)
 ### Save bacteria analysis as csv in processed
 write_csv(bacteria_analysis, "data/processed/bacteria_analysis.csv")  
 write_rds(bacteria_analysis, "data/processed/bacteria_analysis.rds")
+

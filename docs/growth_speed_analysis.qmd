@@ -67,16 +67,16 @@ ggplot(growth_speed_analysis,
 
 Testing for normal distribution of the mean growth speed
 
-```{r}
+```{#{r}
 #| echo: false
 
-###Testing data for normal distribution e_coli 
+###Testing data for normal distribution mean growth speed 
 normality_mean_growth_speed <- growth_speed_species_mean |>
   dplyr::select(species, mean_growth_speed)
 
-shapiro_mean_growth_speed <- normality_mean_growth_speed |>
-  group_by(species)|>
+#shapiro_mean_growth_speed <- normality_mean_growth_speed |>
   shapiro_test(mean_growth_speed)
+ group_by(species)|>
 
 mean_growth_speed|>
   gt()
@@ -93,13 +93,13 @@ Show average growth speed according to substrate used for inoculum
 ```{r}
 #|echo: false
 
-### use mean to compare between the species, each replicate is represented by it is mean in the box plot
+#### calculate mean of an experiment
+growth_speed_analysis|>
+   filter(species != "ctrl")
+glimpse(growth_speed_analysis)
 
-growth_speed_species_mean|>
-  filter(species != "ctrl")
-
-ggplot(growth_speed_species_mean,
-       mapping=aes(x=species, y=mean_growth_speed, fill= material))+
+ggplot(growth_speed_analysis,
+       mapping=aes(x=species, y=mean_growth_speed, fill = material))+
   labs(
     title = "Mean growthspeed by Species",
     x = "Species",
@@ -112,50 +112,14 @@ ggplot(growth_speed_species_mean,
 
 ## Growth speed by Inoculum substrate
 
-Show substrate growth speed for single species on different substrates
+Show substrate growth speed for single species on different inoculum age
 
 ```{r}
 #|echo: false
 
-### use mean to compare between the species, each replicate is represented by it is mean in the box plot
-
-growth_speed_species_mean_postreatus<- growth_speed_analysis|>
-  filter(species == "P. ostreatus")
-
-ggplot(growth_speed_species_mean_postreatus,
-       mapping=aes(x=material,
-                   y=mean_growth_speed, fill=species))+ ### add fill with weight if different wheights are used
-  labs(
-    title = "Mean growthspeed by inoculum material",
-    x = "Inoculum material",
-    y ="Growth rate [cm^2/day]",
-    color = "Species") +
-  geom_boxplot()
-
-###Repeat for other species of interest merge together if desired
-
-ggplot(growth_speed_analysis,
-       mapping=aes(x=material, y= mean_growth_speed,
-                   group = interaction(species, material)))+
-       geom_boxplot()
-
-# Assuming your data frame is named 'your_data'
-# and has columns 'species', 'material', and 'mean_growth_speed'
-
-ggplot(growth_speed_analysis, aes(x = species, y = mean_growth_speed, fill = material)) +
-  geom_boxplot() +
-  facet_grid(~ species, scales = "free_x", space = "free_x") +
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        strip.text.x = element_text(face = "bold")) +
-  labs(title = "Mean Growth Speed by Species and Material",
-       x = "Species",
-       y = "Mean Growth Speed",
-       fill = "Material")
 
 ### Shown depending on Inoculum age make categories depending on age >20 <20 ...
 ggplot(growth_speed_analysis, aes(x = species, y = mean_growth_speed, fill = inoculum_age)) +
-  geom_boxplot() +
   facet_grid(~ species, scales = "free_x", space = "free_x") +
   theme(axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
@@ -164,6 +128,22 @@ ggplot(growth_speed_analysis, aes(x = species, y = mean_growth_speed, fill = ino
        x = "Species",
        y = "Mean Growth Speed",
        fill = "Inoculum Age")
+ geom_boxplot() 
+ 
+
+#### calculate mean of an experiment
+growth_speed_analysis|>
+   filter(species != "ctrl")
+glimpse(growth_speed_analysis)
+
+ggplot(growth_speed_analysis,
+       mapping=aes(x=species, y=mean_growth_speed, fill = inoculum_age))+
+  labs(
+    title = "Mean growthspeed by Species",
+    x = "Species",
+    y ="Growth rate [cm^2/day]",
+    color = "Species") +
+  geom_boxplot()
 
 
 ```

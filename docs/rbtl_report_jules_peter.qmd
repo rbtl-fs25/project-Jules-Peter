@@ -1,0 +1,263 @@
+---
+title: "Report for RBTL"
+format: html
+author: "Jules Peter"
+date: "5.6.2025"
+editor: visual
+---
+
+# Exploring fungi for faecal treatment
+
+# Introduction
+
+Globally, a significant portion of the population lacks access to safe sanitation, leading to the spread of diarrheal diseases and environmental contamination from untreated faecal sludge. While urine diversion dry toilets (UDDTs) offer a potential solution by separating nutrient-rich urine for fertilizer, the handling and potential pathogen reactivation in faeces remain challenges. Current practices like desiccation with additives often fail to completely eliminate pathogens, necessitating improved treatment methods.
+
+The introduction of active microbes, specifically filamentous fungi, to sanitize faeces is a novel approach yet to be extensively studied. Fungi are powerful decomposers in nature, utilizing enzymes to break down complex organic matter. Coprophilous fungi, adapted to nutrient-rich dung, have evolved mechanisms to thrive in environments with high microbial competition. Interestingly, preliminary research indicates that even non-dung-adapted white-rot fungi can colonize human faeces and reduce odour.
+
+This doctoral thesis aims to investigate the potential of fungal species to utilize faeces as a nutrient source, reduce the concentration of harmful bacteria, and alter the physical properties of the faecal mass. Understanding these interactions could lead to the development of fungal inoculum as an effective and sustainable method for treating faecal waste in UDDTs, thereby mitigating health risks and shortening the required storage time for safe disposal or agricultural use.
+
+Within this lecture of rbtl the code for data cleaning and analysis will be developped and tested using a example data set with non-real data.
+
+In order to test the capability of fungi to grow on human faeces, a petri dish based assay will be developed to measure growth speed and log-change of E. coli and Enterococcus before and after fungal over growth.
+
+# Methods
+
+The data structure will be created in the following way
+
+For the different task of the experiment separate tables will be generated.
+
+faeces_1_1
+
+Contains the data of the faecal collection creating one row of data for each faecal collection campaing.
+
+inoculum_1_1
+
+Stores the data for the inoculi used in the experiments.
+
+bacterial_analysis_1_1
+
+Contains the data about bacteria concentration after fungal co-cincubation.
+
+growth_speed_analysis_1_1
+
+In this table each row will refere to a area size measured by image analysis for each picture
+
+experiments_1_1
+
+This table will store the experimental set up linking together faeces_1_1, inoculum_1_1, bacterial_analysis_1_1 and the growth speed analysis to create tables to analyse the data of the fungal growth speed and the log_change of the bacteria
+
+Tables will be created using google_sheets, and stored on googledrive.
+
+A R-script for Loading the relevant data will be created and a separate one to do the data cleaning and preparation for the analysis.
+
+# Results
+
+The following graphics have been generated using the prepared data analysis scripts.
+
+Growth speed analysis and anova and tukey test results
+
+```{r}
+###Load necessary packages for analysis
+#| echo: false # Hide code
+#| results: hide # Hide text output
+#| include: false # Hide plots
+
+library("tidyverse")
+library("knitr")
+library("rstatix")
+library("dplyr")
+library("gt")
+
+knitr::opts_knit$set(root.dir = ("../data"))
+growth_speed_analysis <-read.csv("../data/processed/growth_speed_analysis.csv")
+growth_speed_analysis_long <-read.csv("../data/processed/growth_speed_analysis_long.csv")
+bacteria_analysis <-read.csv("../data/processed/bacteria_analysis.csv")
+```
+
+#### Time curve analysis of growth speed
+
+This plot shows visually is showing how the growth speed is changing over the experimental time for the different tested species.
+
+```{r}
+#|echo: false
+time_curve_plot <- ggplot(growth_speed_analysis_long, aes(x = time_period, y = difference, color = species, group = interaction(species, id_treatment))) + # group aesthetic needed if you have multiple replicates per species plotted directly
+  geom_line() +       # Draw lines connecting points for each species
+  geom_point() +      # Optional: Add points to show the exact data points
+  labs(
+    title = "Growth Difference Over Time by Species",
+    x = "Time days post inoculation [dpi]",
+    y = "Growth rate [cm^2/day]",
+    color = "Species"  # Legend title
+  ) +
+  theme_classic() 
+time_curve_plot
+```
+
+Add test for normal distribution for growth speed data and ANOVA and Tukey test.
+
+#### Mean growth speed analysis between different fungal species
+
+```{r}
+#|echo: false
+
+#### calculate mean of an experiment
+growth_speed_analysis|>
+   filter(species != "ctrl")
+
+ggplot(growth_speed_analysis,
+       mapping=aes(x=species, y=mean_growth_speed))+
+  labs(
+    title = "Mean growthspeed by Species",
+    x = "Species",
+    y ="Growth rate [cm^2/day]",
+    color = "Species") +
+  geom_boxplot()
+```
+
+Influence of the inoculum material on the growth speed
+
+```{r}
+growth_speed_analysis|>
+  filter(species != "ctrl")
+
+ggplot(growth_speed_analysis,
+       mapping=aes(x=species, y=mean_growth_speed, fill= material))+
+  labs(
+    title = "Mean growthspeed by Species",
+    x = "Species",
+    y ="Growth rate [cm^2/day]",
+    color = "Species") +
+  geom_boxplot()
+```
+
+```{r}
+
+growth_speed_analysis|>
+   filter(species != "ctrl")
+
+ggplot(growth_speed_analysis,
+       mapping=aes(x=species, y=mean_growth_speed, fill = inoculum_age))+
+  labs(
+    title = "Mean growthspeed by Species",
+    x = "Species",
+    y ="Growth rate [cm^2/day]",
+    color = "Species") +
+  geom_boxplot()
+```
+
+## Bacterial analysis
+
+In this section the bacteria log-change for ecoli and E. faecalis will be analysed. The log change is calculated from the original measured bacteria concentration from the faecal table and the measured value after co-incubation.
+
+To test the collected data for normal distribution we will make a qq-plot and a shapiro test
+
+```{r}
+#| echo: false
+
+##| echo: false
+
+###Testing data for normal distribution e_coli 
+ecoli_log <- bacteria_analysis|>
+  dplyr::select(species, log_change_ecoli)
+
+shapiro_ecoli <- ecoli_log |>
+  group_by(species)|>
+  shapiro_test(log_change_ecoli)
+
+shapiro_ecoli|>
+  gt()
+
+###qq-plot for each species 
+ggplot(ecoli_log, aes(sample = `log_change_ecoli`)) +
+  geom_qq() +
+  facet_wrap(vars( species)) +
+  geom_qq_line(color = "purple")
+
+
+###Testing data for normal distribution enterococcus 
+enterococcus_log <- bacteria_analysis|>
+  dplyr::select(species, log_change_enterococcus)
+
+shapiro_enterococcus <- enterococcus_log |>
+  group_by(species)|>
+  shapiro_test(log_change_enterococcus)
+
+shapiro_enterococcus|>
+  gt()
+
+###qq-plot for each species 
+ggplot(enterococcus_log, aes(sample = `log_change_enterococcus`)) +
+  geom_qq() +
+  facet_wrap(vars( species)) +
+  geom_qq_line(color = "purple")
+```
+
+Since the data in each of the categories is following a normal distribution an ANOVA and post-hoc Tukey test can be done.
+
+#### Statistical analysis
+
+```{r}
+#Statistical analysis for E. coli and Enterococcus
+
+###ANOVA for ecoli
+ecoli_anova <- ecoli_log |>
+  anova_test(log_change_ecoli ~ species)  
+ecoli_anova|>
+  gt()
+
+tukey_results <- ecoli_log |>
+  tukey_hsd(log_change_ecoli ~ species)
+
+# Add significance symbols/letters
+tukey_results_formatted <- tukey_results |>
+add_significance("p.adj") |>
+  mutate(p.adj = scales::pvalue(p.adj))
+
+tukey_results_formatted|>
+  gt()
+
+### ANOVA for Enterococcus
+enterococcus_anova <- enterococcus_log |>
+  anova_test(log_change_enterococcus ~ species)  
+enterococcus_anova|>
+  gt()
+
+tukey_results <- enterococcus_log |>
+  tukey_hsd(log_change_enterococcus ~ species)
+tukey_results|>
+  gt()
+```
+
+Graphical of the log change for both bacteria compared to control
+
+```{r}
+##Both in one plot
+
+log_change_both <- bacteria_analysis |>
+  pivot_longer(
+    cols = starts_with("log_change_"),  # Select both log-change columns
+    names_to = "bacteria",              # New column for bacteria type
+    values_to = "log_change"            # New column for log-change values
+  )  
+  
+ggplot(log_change_both, aes(x = species, y = log_change, fill = bacteria)) +
+  geom_boxplot(position = position_dodge(width = 0.8), alpha = 0.7) +
+  labs(
+    x = "Species",
+    y = "Log Change",
+    fill = "Bacteria Type",
+    title = "Log Change Comparison by Species"
+  ) +
+  scale_fill_manual(
+    values = c("log_change_ecoli" = "purple", "log_change_enterococcus" = "coral"),
+    labels = c("E. coli", "Enterococcus")
+  ) +
+  theme_minimal()
+
+```
+
+# Conclusions
+
+Theproduced data structure and scripts worked on the test data set. And would allow for analysis of different fungal isolate growth data on faeces.
+
+# References
