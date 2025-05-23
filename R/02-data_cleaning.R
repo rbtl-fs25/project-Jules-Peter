@@ -76,15 +76,6 @@ growth_speed_analysis <- exp_growth_speed_inoculum_faeces|>
 glimpse(growth_speed_analysis)
 
 
-
-# The resulting dataframe 'your_summary_data' will have columns for:
-# - species
-# - mean_growthspeed
-# - sd_growthspeed
-
-# You can view the new dataframe
-print(your_summary_data)
-
 ### Save growth speed as csv in processed
 write_csv(growth_speed_analysis, "data/processed/growth_speed_analysis.csv")  
 write_csv(growth_speed_analysis_long, "data/processed/growth_speed_analysis_long.csv")
@@ -108,8 +99,8 @@ bacteria_selected <- bacteria_joined |>
 
 ###Calculate log-change for each treatment
 bacteria_analysis <- bacteria_selected|>
-  mutate(log_change_ecoli= log10(cfu_ecoli_start/cfu_ecoli_end))|>
-  mutate( log_change_enterococcus= log10(cfu_enterococcus_start/cfu_enterococcus_end))
+  mutate(log_change_ecoli= log10(cfu_ecoli_end/cfu_ecoli_start))|>
+  mutate( log_change_enterococcus= log10(cfu_enterococcus_end/cfu_enterococcus_start))
 
 glimpse(bacteria_analysis)
 
