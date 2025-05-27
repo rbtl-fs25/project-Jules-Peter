@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jules Peter">
-<meta name="dcterms.date" content="2025-05-23">
+<meta name="dcterms.date" content="2025-05-27">
 
 <title>Fungal Faecal Treatment</title>
 <style>
@@ -106,9 +106,8 @@ div.csl-indent {
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
-  <li><a href="#testing-growth-data-for-normal-distribution" id="toc-testing-growth-data-for-normal-distribution" class="nav-link" data-scroll-target="#testing-growth-data-for-normal-distribution">Testing growth data for normal distribution</a></li>
-  <li><a href="#influence-of-the-inoculum-material-on-the-growth-speed" id="toc-influence-of-the-inoculum-material-on-the-growth-speed" class="nav-link" data-scroll-target="#influence-of-the-inoculum-material-on-the-growth-speed">Influence of the inoculum material on the growth speed</a></li>
-  <li><a href="#bacterial-analysis" id="toc-bacterial-analysis" class="nav-link" data-scroll-target="#bacterial-analysis">Bacterial analysis</a></li>
+  <li><a href="#analysis-of-mean-growth-speed" id="toc-analysis-of-mean-growth-speed" class="nav-link" data-scroll-target="#analysis-of-mean-growth-speed">Analysis of mean growth speed</a></li>
+  <li><a href="#analysis-of-bacterial-concentration-changes" id="toc-analysis-of-bacterial-concentration-changes" class="nav-link" data-scroll-target="#analysis-of-bacterial-concentration-changes">Analysis of bacterial concentration changes</a></li>
   </ul></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -136,7 +135,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 23, 2025</p>
+      <p class="date">May 27, 2025</p>
     </div>
   </div>
   
@@ -146,7 +145,7 @@ div.csl-indent {
 <div>
   <div class="abstract">
     <div class="block-title">Abstract</div>
-    Around 43% of worlds population does not have access to safe sanitation. In my PhD I will research a new approach to treat faeces using filamentous fungi. The goal of the research is to find fungal species that grow on human faeces and help reduce concentrations of faecal indicator bacteria. To be able to compare the growth speed and antibacterial effect of different fungal species a data analysis is necessary. With this report I created a script showing a possible way to analyse the to be collected data. The script in for these report was used on a made up data set.
+    Around 43% of worlds population does not have access to safe sanitation. In my PhD I will research a new approach to treat faeces using filamentous fungi. The goal of the research is to find fungal species that grow on human faeces and help reduce concentrations of faecal indicator bacteria. To be able to compare the growth speed and antibacterial effect of different fungal species a data analysis is necessary. With this report the way to manage and analyse the data was created.
   </div>
 </div>
 
@@ -160,15 +159,14 @@ div.csl-indent {
 </section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>Globally, 43% of the population lacks access to safe sanitation<span class="citation" data-cites="diarrhea">(<a href="#ref-diarrhea" role="doc-biblioref"><em>Diarrheal Disease Deaths in Children Under Five by Risk Factor</em>, n.d.</a>)</span>, leading to the spread of diarrheal diseases and environmental contamination from untreated faecal sludge. While urine diversion dry toilets (UDDTs) offer a potential solution by separating nutrient-rich urine for fertilizer, the handling and potential pathogen reactivation in faeces remain challenges. Current practices like desiccation with additives often fail to completely eliminate pathogens, necessitating improved treatment methods.</p>
-<p>The introduction of active microbes, specifically filamentous fungi, to sanitize faeces is a novel approach yet to be extensively studied. Fungi are powerful decomposers in nature, utilizing enzymes to break down complex organic matter. Coprophilous fungi, adapted to nutrient-rich dung, have evolved mechanisms to thrive in environments with high microbial competition. Interestingly, preliminary research indicates that even non-dung-adapted white-rot fungi can colonize human faeces and reduce odour.</p>
-<p>This doctoral thesis aims to investigate the potential of fungal species to utilize faeces as a nutrient source, reduce the concentration of harmful bacteria, and alter the physical properties of the faecal mass. Understanding these interactions could lead to the development of fungal inoculum as an effective and sustainable method for treating faecal waste in UDDTs, thereby mitigating health risks and shortening the required storage time for safe disposal or agricultural use.</p>
-<p>Within this lecture of rbtl the code for data cleaning and analysis will be developped and tested using a example data set with non-real data.</p>
-<p>In order to test the capability of fungi to grow on human faeces, a petri dish based assay will be developed to measure growth speed and log-change of E. coli and Enterococcus before and after fungal over growth.</p>
+<p>Globally, 43% of the population lacks access to safe sanitation <span class="citation" data-cites="population">(<a href="#ref-population" role="doc-biblioref"><em>Population Using Safely Managed Sanitation Services (</em>, n.d.</a>)</span>, leading to the spread of diarrheal diseases and environmental contamination from untreated faecal sludge. While urine diversion dry toilets (UDDTs) offer a potential solution by separating nutrient-rich and safe urine for fertilizer, the treatment of faeces is still a challenge. Long storage times and potential pathogen reactivation in dried faeces remain can be a risk for spreading of disease<span class="citation" data-cites="kumwenda2017">(<a href="#ref-kumwenda2017" role="doc-biblioref">Kumwenda et al., 2017</a>)</span>.</p>
+<p>The introduction of filamentous fungi, to sanitize faeces is a novel approach yet to be studied. Fungi are powerful decomposers in nature, utilizing enzymes to break down complex organic matter <span class="citation" data-cites="berg2020">(<a href="#ref-berg2020" role="doc-biblioref">Berg &amp; McClaugherty, 2020</a>)</span>. Coprophilous fungi, adapted to nutrient-rich dung, have evolved mechanisms to thrive in environments with high microbial competition, they are able to sense bacteria and produce antibacterial compounds up on recognition [<span class="citation" data-cites="kombrink2019inductiona">Kombrink et al. (<a href="#ref-kombrink2019inductiona" role="doc-biblioref">2019</a>)</span>]. Interestingly, preliminary research indicates that even non-dung-adapted white-rot fungi can colonize human faeces and reduce odour.</p>
+<p>This doctoral thesis aims to investigate the potential of fungal species to utilize faeces as a nutrient source, reduce the concentration of harmful bacteria, and alter the physical properties of the faecal mass. Understanding these processes could lead to the development of an effective and sustainable method for treating faecal waste in UDDTs, mitigating health risks and shortening the required storage time for safe disposal or agricultural use.</p>
+<p>Within this lecture of Research beyond the lab (RBTL) the code for data cleaning and analysis will be developed and tested using a example data set with simulated fungal growth and bacteria data. In order to test the capability of fungi to grow on human faeces, a petri dish based assay will be developed to measure growth speed and log-change of E. coli and Enterococcus before and after fungal over growth.</p>
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
-<p>The data structure will be created in the following way. @fig-1</p>
+<p>The data structure will be created in the following way. <a href="#fig-1" class="quarto-xref">Figure&nbsp;1</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"images/data_structure.jpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -178,7 +176,7 @@ div.csl-indent {
 <img src="images/data_structure.jpg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Datastructure to be used in the experiments
+Figure&nbsp;1: Datastructure to be used in the experiments,The tables on the left will be linked over a experimnt table. Two tables will be created one to analyse the growth and one to analyse the change of bacterial concentrations
 </figcaption>
 </figure>
 </div>
@@ -186,19 +184,18 @@ Figure&nbsp;1: Datastructure to be used in the experiments
 </div>
 <p>For the different task of the experiment separate tables will be generated.</p>
 <ul>
-<li><p>faeces_1_1: Contains the data of the faecal collection creating one row of data for each faecal collection campaign.</p></li>
-<li><p>inoculum_1_1: Stores the data for the inoculum used in the experiments.</p></li>
-<li><p>bacterial_analysis_1_1: Contains the data about bacteria concentration after fungal co-incubation.</p></li>
-<li><p>growth_speed_analysis_1_1: In this table each row will refer to a area size measured by image analysis for each picture</p></li>
-<li><p>experiments_1_1: This table will store the experimental set up linking together all the tables using shared IDs</p></li>
+<li>faeces_1_1: Contains the data of the faecal collection creating one row of data for each faecal collection campaign.</li>
+<li>inoculum_1_1: Stores the data for the inoculum used in the experiments.</li>
+<li>bacterial_analysis_1_1: Contains the data about bacteria concentration after fungal co-incubation.</li>
+<li>growth_speed_analysis_1_1: In this table each row will refer to a area size measured by image analysis for each picture</li>
+<li>experiments_1_1: This table will store the experimental set up linking together all the tables using shared IDs</li>
 </ul>
-<p>Tables will be created using google_sheets, and stored on google drive.</p>
-<p>Data analysis and figures are created using R (Rstudio V.2025.05.0&nbsp;Build 496).</p>
-<p>An R-script for Loading the relevant data (01-data_download) another one cleans the data and prepare it for the analysis (02-data_cleaning.R). These R scripts are stored in the folder fungal-faecal-treatment/R</p>
-<p>Data files being saved in the folder data processed with their corresponding name for the analysis as CSV files. (growth_speed_analysis and bacteria_analysis)</p>
+<p>Tables will be created using google_sheets, and stored on google drive. Data analysis and figures are created using R (Rstudio V.2025.05.0&nbsp;Build 496). An R-script for Loading the relevant data (01-data_download) another one cleans the data and prepare it for the analysis (02-data_cleaning.R). These R scripts are stored in the folder fungal-faecal-treatment/R. Data files being saved in the folder data processed with their corresponding name for the analysis as CSV files. (growth_speed_analysis and bacteria_analysis)</p>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<section id="analysis-of-mean-growth-speed" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-of-mean-growth-speed">Analysis of mean growth speed</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Load necessary packages for analysis</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false # Hide code</span></span>
@@ -217,8 +214,6 @@ Figure&nbsp;1: Datastructure to be used in the experiments
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>growth_speed_analysis <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">"../data/processed/growth_speed_analysis.csv"</span>)</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>bacteria_analysis <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">"../data/processed/bacteria_analysis.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="testing-growth-data-for-normal-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="testing-growth-data-for-normal-distribution">Testing growth data for normal distribution</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Testing data for normal distribution e_coli </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mean_growth_speed_species <span class="ot">&lt;-</span> growth_speed_analysis<span class="sc">|&gt;</span></span>
@@ -243,9 +238,15 @@ Figure&nbsp;2: creating Q-Q plot to see mean growth speed distribution for each 
 </div>
 </div>
 </div>
-<p>The Q-Q plot indicates that the growth speed of C. comatus follows normal distribution, for Faecal Isolate 1 there is a slight deviation from the line which indicates some deviation from a normal distribution. For P. ostreatus the data seems to be skewed in both ends which suggest that the data does not follow normal distribution.</p>
-<p>To furtehr check the data a Shapiro test was performed.</p>
+<p>The Q-Q plot <a href="#fig-2" class="quarto-xref">Figure&nbsp;2</a> indicates that the growth speed of C. comatus follows normal distribution, for Faecal Isolate 1 there is a slight deviation from the line which indicates some deviation from a normal distribution. For P. ostreatus the data seems to be skewed in both ends which suggest that the data does not follow normal distribution. The Shapiro test <a href="#tbl-1" class="quarto-xref">Table&nbsp;1</a> on the data showed that <em>P. ostreatus</em> does not follow normal distribution.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>shapiro_mean_growth_speed_species <span class="ot">&lt;-</span> mean_growth_speed_species <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species)<span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(mean_growth_speed)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>shapiro_mean_growth_speed_species<span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()<span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_caption</span>(<span class="st">"Shapiro-test for testing mean growth speed of fungal species for normal distibution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-1" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -253,23 +254,23 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
 </figcaption>
 <div aria-describedby="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="kalquntuin" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kalquntuin table {
+<div id="dmswcgocws" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dmswcgocws table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kalquntuin thead, #kalquntuin tbody, #kalquntuin tfoot, #kalquntuin tr, #kalquntuin td, #kalquntuin th {
+#dmswcgocws thead, #dmswcgocws tbody, #dmswcgocws tfoot, #dmswcgocws tr, #dmswcgocws td, #dmswcgocws th {
   border-style: none;
 }
 
-#kalquntuin p {
+#dmswcgocws p {
   margin: 0;
   padding: 0;
 }
 
-#kalquntuin .gt_table {
+#dmswcgocws .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -295,12 +296,12 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-left-color: #D3D3D3;
 }
 
-#kalquntuin .gt_caption {
+#dmswcgocws .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kalquntuin .gt_title {
+#dmswcgocws .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -312,7 +313,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-bottom-width: 0;
 }
 
-#kalquntuin .gt_subtitle {
+#dmswcgocws .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -324,7 +325,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-top-width: 0;
 }
 
-#kalquntuin .gt_heading {
+#dmswcgocws .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -336,13 +337,13 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-right-color: #D3D3D3;
 }
 
-#kalquntuin .gt_bottom_border {
+#dmswcgocws .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kalquntuin .gt_col_headings {
+#dmswcgocws .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -357,7 +358,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-right-color: #D3D3D3;
 }
 
-#kalquntuin .gt_col_heading {
+#dmswcgocws .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -377,7 +378,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   overflow-x: hidden;
 }
 
-#kalquntuin .gt_column_spanner_outer {
+#dmswcgocws .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -389,15 +390,15 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   padding-right: 4px;
 }
 
-#kalquntuin .gt_column_spanner_outer:first-child {
+#dmswcgocws .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kalquntuin .gt_column_spanner_outer:last-child {
+#dmswcgocws .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kalquntuin .gt_column_spanner {
+#dmswcgocws .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -409,11 +410,11 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   width: 100%;
 }
 
-#kalquntuin .gt_spanner_row {
+#dmswcgocws .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kalquntuin .gt_group_heading {
+#dmswcgocws .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -439,7 +440,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   text-align: left;
 }
 
-#kalquntuin .gt_empty_group_heading {
+#dmswcgocws .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -454,15 +455,15 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   vertical-align: middle;
 }
 
-#kalquntuin .gt_from_md > :first-child {
+#dmswcgocws .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kalquntuin .gt_from_md > :last-child {
+#dmswcgocws .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kalquntuin .gt_row {
+#dmswcgocws .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -481,7 +482,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   overflow-x: hidden;
 }
 
-#kalquntuin .gt_stub {
+#dmswcgocws .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -494,7 +495,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   padding-right: 5px;
 }
 
-#kalquntuin .gt_stub_row_group {
+#dmswcgocws .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -508,15 +509,15 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   vertical-align: top;
 }
 
-#kalquntuin .gt_row_group_first td {
+#dmswcgocws .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kalquntuin .gt_row_group_first th {
+#dmswcgocws .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kalquntuin .gt_summary_row {
+#dmswcgocws .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -526,16 +527,16 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   padding-right: 5px;
 }
 
-#kalquntuin .gt_first_summary_row {
+#dmswcgocws .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kalquntuin .gt_first_summary_row.thick {
+#dmswcgocws .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kalquntuin .gt_last_summary_row {
+#dmswcgocws .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -545,7 +546,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-bottom-color: #D3D3D3;
 }
 
-#kalquntuin .gt_grand_summary_row {
+#dmswcgocws .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -555,7 +556,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   padding-right: 5px;
 }
 
-#kalquntuin .gt_first_grand_summary_row {
+#dmswcgocws .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -565,7 +566,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-top-color: #D3D3D3;
 }
 
-#kalquntuin .gt_last_grand_summary_row_top {
+#dmswcgocws .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -575,11 +576,11 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-bottom-color: #D3D3D3;
 }
 
-#kalquntuin .gt_striped {
+#dmswcgocws .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kalquntuin .gt_table_body {
+#dmswcgocws .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -588,7 +589,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-bottom-color: #D3D3D3;
 }
 
-#kalquntuin .gt_footnotes {
+#dmswcgocws .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -602,7 +603,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-right-color: #D3D3D3;
 }
 
-#kalquntuin .gt_footnote {
+#dmswcgocws .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -611,7 +612,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   padding-right: 5px;
 }
 
-#kalquntuin .gt_sourcenotes {
+#dmswcgocws .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -625,7 +626,7 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   border-right-color: #D3D3D3;
 }
 
-#kalquntuin .gt_sourcenote {
+#dmswcgocws .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -633,72 +634,72 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
   padding-right: 5px;
 }
 
-#kalquntuin .gt_left {
+#dmswcgocws .gt_left {
   text-align: left;
 }
 
-#kalquntuin .gt_center {
+#dmswcgocws .gt_center {
   text-align: center;
 }
 
-#kalquntuin .gt_right {
+#dmswcgocws .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kalquntuin .gt_font_normal {
+#dmswcgocws .gt_font_normal {
   font-weight: normal;
 }
 
-#kalquntuin .gt_font_bold {
+#dmswcgocws .gt_font_bold {
   font-weight: bold;
 }
 
-#kalquntuin .gt_font_italic {
+#dmswcgocws .gt_font_italic {
   font-style: italic;
 }
 
-#kalquntuin .gt_super {
+#dmswcgocws .gt_super {
   font-size: 65%;
 }
 
-#kalquntuin .gt_footnote_marks {
+#dmswcgocws .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kalquntuin .gt_asterisk {
+#dmswcgocws .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kalquntuin .gt_indent_1 {
+#dmswcgocws .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kalquntuin .gt_indent_2 {
+#dmswcgocws .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kalquntuin .gt_indent_3 {
+#dmswcgocws .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kalquntuin .gt_indent_4 {
+#dmswcgocws .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kalquntuin .gt_indent_5 {
+#dmswcgocws .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kalquntuin .katex-display {
+#dmswcgocws .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kalquntuin div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dmswcgocws div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -741,11 +742,19 @@ Table&nbsp;1: Shapiro-test for testing mean growth speed of fungal species for n
 </figure>
 </div>
 </div>
-<p>The shapiro test verifies the normal distribution for <em>C. comatus</em> and faecal isolate 1 while it shows violation of normal distribution for <em>P. ostreatus v. Floridae.</em></p>
-<section id="box-plot-and-statistical-tests" class="level4">
-<h4 class="anchored" data-anchor-id="box-plot-and-statistical-tests">Box plot and statistical tests</h4>
-<p>A box-plot shows the median growth speed of the different fungal species.</p>
+<p>The shapiro test verifies the normal distribution for <em>C. comatus</em> and faecal isolate 1 while it shows violation of normal distribution for <em>P. ostreatus v. Floridae.</em> <a href="#fig-3" class="quarto-xref">Figure&nbsp;3</a> shows the median of the mean growth speed and distribution of the different fungal species in a Box-plot. Also here we can see that the median of <em>P. ostreatus</em> is shifted.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove control from growth speed assays </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>growth_speed_analysis<span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"Control"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(growth_speed_analysis,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>species, <span class="at">y=</span>mean_growth_speed))<span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean growthspeed by Species"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span><span class="st">"Growth rate [cm^2/day]"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -759,11 +768,15 @@ Figure&nbsp;3: Boxplot showing median and distribution of mean growth speed valu
 </div>
 </div>
 </div>
-</section>
-<section id="statistical-analysis-of-growth-speed" class="level4">
-<h4 class="anchored" data-anchor-id="statistical-analysis-of-growth-speed">Statistical analysis of growth speed</h4>
-<p>ANOVA - an Tukey post hoc analysis</p>
+<p>Since the mean growth speed is not normal distributed it would be recommended to use a test that allows not normal distributed data like Kruskal-Wallis test. This script should be able to handle both cases first an analysis of variance (anova) is done on the data set. To test if the mean growth of the different fungi are different from each other. The anova <a href="#tbl-2" class="quarto-xref">Table&nbsp;2</a> with a Tukey post-hoc analysis analysis <a href="#tbl-3" class="quarto-xref">Table&nbsp;3</a> shows that there is no significant difference in the mean growth speed between the different species for any of the pairs.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Statistical analysis for growth speed</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">###ANOVA for growth speed between different species</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>growth_speed_anova <span class="ot">&lt;-</span> mean_growth_speed_species <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(mean_growth_speed <span class="sc">~</span> species)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  growth_speed_anova<span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-2" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -771,23 +784,23 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
 </figcaption>
 <div aria-describedby="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="lzxpzeirjf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lzxpzeirjf table {
+<div id="ltdhjawiiw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ltdhjawiiw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lzxpzeirjf thead, #lzxpzeirjf tbody, #lzxpzeirjf tfoot, #lzxpzeirjf tr, #lzxpzeirjf td, #lzxpzeirjf th {
+#ltdhjawiiw thead, #ltdhjawiiw tbody, #ltdhjawiiw tfoot, #ltdhjawiiw tr, #ltdhjawiiw td, #ltdhjawiiw th {
   border-style: none;
 }
 
-#lzxpzeirjf p {
+#ltdhjawiiw p {
   margin: 0;
   padding: 0;
 }
 
-#lzxpzeirjf .gt_table {
+#ltdhjawiiw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -813,12 +826,12 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-left-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_caption {
+#ltdhjawiiw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lzxpzeirjf .gt_title {
+#ltdhjawiiw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -830,7 +843,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-bottom-width: 0;
 }
 
-#lzxpzeirjf .gt_subtitle {
+#ltdhjawiiw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -842,7 +855,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-top-width: 0;
 }
 
-#lzxpzeirjf .gt_heading {
+#ltdhjawiiw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -854,13 +867,13 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-right-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_bottom_border {
+#ltdhjawiiw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_col_headings {
+#ltdhjawiiw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -875,7 +888,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-right-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_col_heading {
+#ltdhjawiiw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -895,7 +908,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   overflow-x: hidden;
 }
 
-#lzxpzeirjf .gt_column_spanner_outer {
+#ltdhjawiiw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -907,15 +920,15 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   padding-right: 4px;
 }
 
-#lzxpzeirjf .gt_column_spanner_outer:first-child {
+#ltdhjawiiw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lzxpzeirjf .gt_column_spanner_outer:last-child {
+#ltdhjawiiw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lzxpzeirjf .gt_column_spanner {
+#ltdhjawiiw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -927,11 +940,11 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   width: 100%;
 }
 
-#lzxpzeirjf .gt_spanner_row {
+#ltdhjawiiw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lzxpzeirjf .gt_group_heading {
+#ltdhjawiiw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -957,7 +970,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   text-align: left;
 }
 
-#lzxpzeirjf .gt_empty_group_heading {
+#ltdhjawiiw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -972,15 +985,15 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   vertical-align: middle;
 }
 
-#lzxpzeirjf .gt_from_md > :first-child {
+#ltdhjawiiw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lzxpzeirjf .gt_from_md > :last-child {
+#ltdhjawiiw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lzxpzeirjf .gt_row {
+#ltdhjawiiw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -999,7 +1012,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   overflow-x: hidden;
 }
 
-#lzxpzeirjf .gt_stub {
+#ltdhjawiiw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1012,7 +1025,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   padding-right: 5px;
 }
 
-#lzxpzeirjf .gt_stub_row_group {
+#ltdhjawiiw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1026,15 +1039,15 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   vertical-align: top;
 }
 
-#lzxpzeirjf .gt_row_group_first td {
+#ltdhjawiiw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lzxpzeirjf .gt_row_group_first th {
+#ltdhjawiiw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lzxpzeirjf .gt_summary_row {
+#ltdhjawiiw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1044,16 +1057,16 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   padding-right: 5px;
 }
 
-#lzxpzeirjf .gt_first_summary_row {
+#ltdhjawiiw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_first_summary_row.thick {
+#ltdhjawiiw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lzxpzeirjf .gt_last_summary_row {
+#ltdhjawiiw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1063,7 +1076,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-bottom-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_grand_summary_row {
+#ltdhjawiiw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1073,7 +1086,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   padding-right: 5px;
 }
 
-#lzxpzeirjf .gt_first_grand_summary_row {
+#ltdhjawiiw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1083,7 +1096,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-top-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_last_grand_summary_row_top {
+#ltdhjawiiw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1093,11 +1106,11 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-bottom-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_striped {
+#ltdhjawiiw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lzxpzeirjf .gt_table_body {
+#ltdhjawiiw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1106,7 +1119,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-bottom-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_footnotes {
+#ltdhjawiiw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1120,7 +1133,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-right-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_footnote {
+#ltdhjawiiw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1129,7 +1142,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   padding-right: 5px;
 }
 
-#lzxpzeirjf .gt_sourcenotes {
+#ltdhjawiiw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1143,7 +1156,7 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   border-right-color: #D3D3D3;
 }
 
-#lzxpzeirjf .gt_sourcenote {
+#ltdhjawiiw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1151,72 +1164,72 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
   padding-right: 5px;
 }
 
-#lzxpzeirjf .gt_left {
+#ltdhjawiiw .gt_left {
   text-align: left;
 }
 
-#lzxpzeirjf .gt_center {
+#ltdhjawiiw .gt_center {
   text-align: center;
 }
 
-#lzxpzeirjf .gt_right {
+#ltdhjawiiw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lzxpzeirjf .gt_font_normal {
+#ltdhjawiiw .gt_font_normal {
   font-weight: normal;
 }
 
-#lzxpzeirjf .gt_font_bold {
+#ltdhjawiiw .gt_font_bold {
   font-weight: bold;
 }
 
-#lzxpzeirjf .gt_font_italic {
+#ltdhjawiiw .gt_font_italic {
   font-style: italic;
 }
 
-#lzxpzeirjf .gt_super {
+#ltdhjawiiw .gt_super {
   font-size: 65%;
 }
 
-#lzxpzeirjf .gt_footnote_marks {
+#ltdhjawiiw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lzxpzeirjf .gt_asterisk {
+#ltdhjawiiw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lzxpzeirjf .gt_indent_1 {
+#ltdhjawiiw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lzxpzeirjf .gt_indent_2 {
+#ltdhjawiiw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lzxpzeirjf .gt_indent_3 {
+#ltdhjawiiw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lzxpzeirjf .gt_indent_4 {
+#ltdhjawiiw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lzxpzeirjf .gt_indent_5 {
+#ltdhjawiiw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lzxpzeirjf .katex-display {
+#ltdhjawiiw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lzxpzeirjf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ltdhjawiiw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1252,8 +1265,12 @@ Table&nbsp;2: ANOVA testing significane of growth speed between different specie
 </figure>
 </div>
 </div>
-<p>Tukey-test for growth speed</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>growth_speed_tukey_results <span class="ot">&lt;-</span> mean_growth_speed_species <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(mean_growth_speed <span class="sc">~</span> species)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>growth_speed_tukey_results<span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-3" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1261,23 +1278,23 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
 </figcaption>
 <div aria-describedby="tbl-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="botdscuyvs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#botdscuyvs table {
+<div id="pbnyjomubq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pbnyjomubq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#botdscuyvs thead, #botdscuyvs tbody, #botdscuyvs tfoot, #botdscuyvs tr, #botdscuyvs td, #botdscuyvs th {
+#pbnyjomubq thead, #pbnyjomubq tbody, #pbnyjomubq tfoot, #pbnyjomubq tr, #pbnyjomubq td, #pbnyjomubq th {
   border-style: none;
 }
 
-#botdscuyvs p {
+#pbnyjomubq p {
   margin: 0;
   padding: 0;
 }
 
-#botdscuyvs .gt_table {
+#pbnyjomubq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1303,12 +1320,12 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-left-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_caption {
+#pbnyjomubq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#botdscuyvs .gt_title {
+#pbnyjomubq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1320,7 +1337,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-bottom-width: 0;
 }
 
-#botdscuyvs .gt_subtitle {
+#pbnyjomubq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1332,7 +1349,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-top-width: 0;
 }
 
-#botdscuyvs .gt_heading {
+#pbnyjomubq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1344,13 +1361,13 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-right-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_bottom_border {
+#pbnyjomubq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_col_headings {
+#pbnyjomubq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1365,7 +1382,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-right-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_col_heading {
+#pbnyjomubq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1385,7 +1402,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   overflow-x: hidden;
 }
 
-#botdscuyvs .gt_column_spanner_outer {
+#pbnyjomubq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1397,15 +1414,15 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   padding-right: 4px;
 }
 
-#botdscuyvs .gt_column_spanner_outer:first-child {
+#pbnyjomubq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#botdscuyvs .gt_column_spanner_outer:last-child {
+#pbnyjomubq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#botdscuyvs .gt_column_spanner {
+#pbnyjomubq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1417,11 +1434,11 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   width: 100%;
 }
 
-#botdscuyvs .gt_spanner_row {
+#pbnyjomubq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#botdscuyvs .gt_group_heading {
+#pbnyjomubq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1447,7 +1464,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   text-align: left;
 }
 
-#botdscuyvs .gt_empty_group_heading {
+#pbnyjomubq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1462,15 +1479,15 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   vertical-align: middle;
 }
 
-#botdscuyvs .gt_from_md > :first-child {
+#pbnyjomubq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#botdscuyvs .gt_from_md > :last-child {
+#pbnyjomubq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#botdscuyvs .gt_row {
+#pbnyjomubq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1489,7 +1506,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   overflow-x: hidden;
 }
 
-#botdscuyvs .gt_stub {
+#pbnyjomubq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1502,7 +1519,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   padding-right: 5px;
 }
 
-#botdscuyvs .gt_stub_row_group {
+#pbnyjomubq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1516,15 +1533,15 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   vertical-align: top;
 }
 
-#botdscuyvs .gt_row_group_first td {
+#pbnyjomubq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#botdscuyvs .gt_row_group_first th {
+#pbnyjomubq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#botdscuyvs .gt_summary_row {
+#pbnyjomubq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1534,16 +1551,16 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   padding-right: 5px;
 }
 
-#botdscuyvs .gt_first_summary_row {
+#pbnyjomubq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_first_summary_row.thick {
+#pbnyjomubq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#botdscuyvs .gt_last_summary_row {
+#pbnyjomubq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1553,7 +1570,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-bottom-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_grand_summary_row {
+#pbnyjomubq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1563,7 +1580,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   padding-right: 5px;
 }
 
-#botdscuyvs .gt_first_grand_summary_row {
+#pbnyjomubq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1573,7 +1590,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-top-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_last_grand_summary_row_top {
+#pbnyjomubq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1583,11 +1600,11 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-bottom-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_striped {
+#pbnyjomubq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#botdscuyvs .gt_table_body {
+#pbnyjomubq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1596,7 +1613,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-bottom-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_footnotes {
+#pbnyjomubq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1610,7 +1627,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-right-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_footnote {
+#pbnyjomubq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1619,7 +1636,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   padding-right: 5px;
 }
 
-#botdscuyvs .gt_sourcenotes {
+#pbnyjomubq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1633,7 +1650,7 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   border-right-color: #D3D3D3;
 }
 
-#botdscuyvs .gt_sourcenote {
+#pbnyjomubq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1641,72 +1658,72 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
   padding-right: 5px;
 }
 
-#botdscuyvs .gt_left {
+#pbnyjomubq .gt_left {
   text-align: left;
 }
 
-#botdscuyvs .gt_center {
+#pbnyjomubq .gt_center {
   text-align: center;
 }
 
-#botdscuyvs .gt_right {
+#pbnyjomubq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#botdscuyvs .gt_font_normal {
+#pbnyjomubq .gt_font_normal {
   font-weight: normal;
 }
 
-#botdscuyvs .gt_font_bold {
+#pbnyjomubq .gt_font_bold {
   font-weight: bold;
 }
 
-#botdscuyvs .gt_font_italic {
+#pbnyjomubq .gt_font_italic {
   font-style: italic;
 }
 
-#botdscuyvs .gt_super {
+#pbnyjomubq .gt_super {
   font-size: 65%;
 }
 
-#botdscuyvs .gt_footnote_marks {
+#pbnyjomubq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#botdscuyvs .gt_asterisk {
+#pbnyjomubq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#botdscuyvs .gt_indent_1 {
+#pbnyjomubq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#botdscuyvs .gt_indent_2 {
+#pbnyjomubq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#botdscuyvs .gt_indent_3 {
+#pbnyjomubq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#botdscuyvs .gt_indent_4 {
+#pbnyjomubq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#botdscuyvs .gt_indent_5 {
+#pbnyjomubq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#botdscuyvs .katex-display {
+#pbnyjomubq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#botdscuyvs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pbnyjomubq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1768,8 +1785,22 @@ Table&nbsp;3: Tukey test results comparing growth speed between the treatments
 </figure>
 </div>
 </div>
-<p>No signifant difference between the growth speed of the three fungal species under assuming normal distribution of the data.</p>
+<p>To complete the test setting the data will also be analysed using statistical tests that do not need normal distributed data. In this case a Kruskal-Wallis test <a href="#tbl-4" class="quarto-xref">Table&nbsp;4</a> and a Dunn post-hoc analysis <a href="#tbl-5" class="quarto-xref">Table&nbsp;5</a> are done</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure 'species' is a factor</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>growth_speed_analysis <span class="ot">&lt;-</span> growth_speed_analysis <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">as.factor</span>(species))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the Kruskal-Wallis test using rstatix</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>kruskal_result_growth_speed <span class="ot">&lt;-</span> growth_speed_analysis <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(mean_growth_speed <span class="sc">~</span> species)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a> kruskal_growth_speed_table <span class="ot">&lt;-</span> kruskal_result_growth_speed<span class="sc">|&gt;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>.y.) <span class="sc">%&gt;%</span> <span class="co"># Remove the '.y.' column for cleaner output</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>kruskal_growth_speed_table  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-4" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1777,23 +1808,23 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
 </figcaption>
 <div aria-describedby="tbl-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="uwqxzadnuq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uwqxzadnuq table {
+<div id="pomlvguzno" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pomlvguzno table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uwqxzadnuq thead, #uwqxzadnuq tbody, #uwqxzadnuq tfoot, #uwqxzadnuq tr, #uwqxzadnuq td, #uwqxzadnuq th {
+#pomlvguzno thead, #pomlvguzno tbody, #pomlvguzno tfoot, #pomlvguzno tr, #pomlvguzno td, #pomlvguzno th {
   border-style: none;
 }
 
-#uwqxzadnuq p {
+#pomlvguzno p {
   margin: 0;
   padding: 0;
 }
 
-#uwqxzadnuq .gt_table {
+#pomlvguzno .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1819,12 +1850,12 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-left-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_caption {
+#pomlvguzno .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uwqxzadnuq .gt_title {
+#pomlvguzno .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1836,7 +1867,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-bottom-width: 0;
 }
 
-#uwqxzadnuq .gt_subtitle {
+#pomlvguzno .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1848,7 +1879,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-top-width: 0;
 }
 
-#uwqxzadnuq .gt_heading {
+#pomlvguzno .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1860,13 +1891,13 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-right-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_bottom_border {
+#pomlvguzno .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_col_headings {
+#pomlvguzno .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1881,7 +1912,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-right-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_col_heading {
+#pomlvguzno .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1901,7 +1932,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   overflow-x: hidden;
 }
 
-#uwqxzadnuq .gt_column_spanner_outer {
+#pomlvguzno .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1913,15 +1944,15 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   padding-right: 4px;
 }
 
-#uwqxzadnuq .gt_column_spanner_outer:first-child {
+#pomlvguzno .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uwqxzadnuq .gt_column_spanner_outer:last-child {
+#pomlvguzno .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uwqxzadnuq .gt_column_spanner {
+#pomlvguzno .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1933,11 +1964,11 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   width: 100%;
 }
 
-#uwqxzadnuq .gt_spanner_row {
+#pomlvguzno .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uwqxzadnuq .gt_group_heading {
+#pomlvguzno .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1963,7 +1994,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   text-align: left;
 }
 
-#uwqxzadnuq .gt_empty_group_heading {
+#pomlvguzno .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1978,15 +2009,15 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   vertical-align: middle;
 }
 
-#uwqxzadnuq .gt_from_md > :first-child {
+#pomlvguzno .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uwqxzadnuq .gt_from_md > :last-child {
+#pomlvguzno .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uwqxzadnuq .gt_row {
+#pomlvguzno .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2005,7 +2036,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   overflow-x: hidden;
 }
 
-#uwqxzadnuq .gt_stub {
+#pomlvguzno .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2018,7 +2049,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   padding-right: 5px;
 }
 
-#uwqxzadnuq .gt_stub_row_group {
+#pomlvguzno .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2032,15 +2063,15 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   vertical-align: top;
 }
 
-#uwqxzadnuq .gt_row_group_first td {
+#pomlvguzno .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uwqxzadnuq .gt_row_group_first th {
+#pomlvguzno .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uwqxzadnuq .gt_summary_row {
+#pomlvguzno .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2050,16 +2081,16 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   padding-right: 5px;
 }
 
-#uwqxzadnuq .gt_first_summary_row {
+#pomlvguzno .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_first_summary_row.thick {
+#pomlvguzno .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uwqxzadnuq .gt_last_summary_row {
+#pomlvguzno .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2069,7 +2100,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-bottom-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_grand_summary_row {
+#pomlvguzno .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2079,7 +2110,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   padding-right: 5px;
 }
 
-#uwqxzadnuq .gt_first_grand_summary_row {
+#pomlvguzno .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2089,7 +2120,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-top-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_last_grand_summary_row_top {
+#pomlvguzno .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2099,11 +2130,11 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-bottom-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_striped {
+#pomlvguzno .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uwqxzadnuq .gt_table_body {
+#pomlvguzno .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2112,7 +2143,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-bottom-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_footnotes {
+#pomlvguzno .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2126,7 +2157,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-right-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_footnote {
+#pomlvguzno .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2135,7 +2166,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   padding-right: 5px;
 }
 
-#uwqxzadnuq .gt_sourcenotes {
+#pomlvguzno .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2149,7 +2180,7 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   border-right-color: #D3D3D3;
 }
 
-#uwqxzadnuq .gt_sourcenote {
+#pomlvguzno .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2157,72 +2188,72 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
   padding-right: 5px;
 }
 
-#uwqxzadnuq .gt_left {
+#pomlvguzno .gt_left {
   text-align: left;
 }
 
-#uwqxzadnuq .gt_center {
+#pomlvguzno .gt_center {
   text-align: center;
 }
 
-#uwqxzadnuq .gt_right {
+#pomlvguzno .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uwqxzadnuq .gt_font_normal {
+#pomlvguzno .gt_font_normal {
   font-weight: normal;
 }
 
-#uwqxzadnuq .gt_font_bold {
+#pomlvguzno .gt_font_bold {
   font-weight: bold;
 }
 
-#uwqxzadnuq .gt_font_italic {
+#pomlvguzno .gt_font_italic {
   font-style: italic;
 }
 
-#uwqxzadnuq .gt_super {
+#pomlvguzno .gt_super {
   font-size: 65%;
 }
 
-#uwqxzadnuq .gt_footnote_marks {
+#pomlvguzno .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uwqxzadnuq .gt_asterisk {
+#pomlvguzno .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uwqxzadnuq .gt_indent_1 {
+#pomlvguzno .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uwqxzadnuq .gt_indent_2 {
+#pomlvguzno .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uwqxzadnuq .gt_indent_3 {
+#pomlvguzno .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uwqxzadnuq .gt_indent_4 {
+#pomlvguzno .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uwqxzadnuq .gt_indent_5 {
+#pomlvguzno .gt_indent_5 {
   text-indent: 25px;
 }
 
-#uwqxzadnuq .katex-display {
+#pomlvguzno .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#uwqxzadnuq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pomlvguzno div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2255,6 +2286,12 @@ Table&nbsp;4: Kruskal_wallis test significane of growth speed between different 
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dunn_result <span class="ot">&lt;-</span> growth_speed_analysis <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(mean_growth_speed <span class="sc">~</span> species, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the Dunn's test results</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>dunn_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-5" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2262,23 +2299,23 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
 </figcaption>
 <div aria-describedby="tbl-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="nljqhifenc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nljqhifenc table {
+<div id="kfetzarfml" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kfetzarfml table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nljqhifenc thead, #nljqhifenc tbody, #nljqhifenc tfoot, #nljqhifenc tr, #nljqhifenc td, #nljqhifenc th {
+#kfetzarfml thead, #kfetzarfml tbody, #kfetzarfml tfoot, #kfetzarfml tr, #kfetzarfml td, #kfetzarfml th {
   border-style: none;
 }
 
-#nljqhifenc p {
+#kfetzarfml p {
   margin: 0;
   padding: 0;
 }
 
-#nljqhifenc .gt_table {
+#kfetzarfml .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2304,12 +2341,12 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-left-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_caption {
+#kfetzarfml .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nljqhifenc .gt_title {
+#kfetzarfml .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2321,7 +2358,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-bottom-width: 0;
 }
 
-#nljqhifenc .gt_subtitle {
+#kfetzarfml .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2333,7 +2370,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-top-width: 0;
 }
 
-#nljqhifenc .gt_heading {
+#kfetzarfml .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2345,13 +2382,13 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-right-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_bottom_border {
+#kfetzarfml .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_col_headings {
+#kfetzarfml .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2366,7 +2403,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-right-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_col_heading {
+#kfetzarfml .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2386,7 +2423,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   overflow-x: hidden;
 }
 
-#nljqhifenc .gt_column_spanner_outer {
+#kfetzarfml .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2398,15 +2435,15 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   padding-right: 4px;
 }
 
-#nljqhifenc .gt_column_spanner_outer:first-child {
+#kfetzarfml .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nljqhifenc .gt_column_spanner_outer:last-child {
+#kfetzarfml .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nljqhifenc .gt_column_spanner {
+#kfetzarfml .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2418,11 +2455,11 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   width: 100%;
 }
 
-#nljqhifenc .gt_spanner_row {
+#kfetzarfml .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nljqhifenc .gt_group_heading {
+#kfetzarfml .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2448,7 +2485,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   text-align: left;
 }
 
-#nljqhifenc .gt_empty_group_heading {
+#kfetzarfml .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2463,15 +2500,15 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   vertical-align: middle;
 }
 
-#nljqhifenc .gt_from_md > :first-child {
+#kfetzarfml .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nljqhifenc .gt_from_md > :last-child {
+#kfetzarfml .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nljqhifenc .gt_row {
+#kfetzarfml .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2490,7 +2527,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   overflow-x: hidden;
 }
 
-#nljqhifenc .gt_stub {
+#kfetzarfml .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2503,7 +2540,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   padding-right: 5px;
 }
 
-#nljqhifenc .gt_stub_row_group {
+#kfetzarfml .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2517,15 +2554,15 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   vertical-align: top;
 }
 
-#nljqhifenc .gt_row_group_first td {
+#kfetzarfml .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nljqhifenc .gt_row_group_first th {
+#kfetzarfml .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nljqhifenc .gt_summary_row {
+#kfetzarfml .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2535,16 +2572,16 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   padding-right: 5px;
 }
 
-#nljqhifenc .gt_first_summary_row {
+#kfetzarfml .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_first_summary_row.thick {
+#kfetzarfml .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nljqhifenc .gt_last_summary_row {
+#kfetzarfml .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2554,7 +2591,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-bottom-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_grand_summary_row {
+#kfetzarfml .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2564,7 +2601,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   padding-right: 5px;
 }
 
-#nljqhifenc .gt_first_grand_summary_row {
+#kfetzarfml .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2574,7 +2611,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-top-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_last_grand_summary_row_top {
+#kfetzarfml .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2584,11 +2621,11 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-bottom-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_striped {
+#kfetzarfml .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nljqhifenc .gt_table_body {
+#kfetzarfml .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2597,7 +2634,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-bottom-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_footnotes {
+#kfetzarfml .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2611,7 +2648,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-right-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_footnote {
+#kfetzarfml .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2620,7 +2657,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   padding-right: 5px;
 }
 
-#nljqhifenc .gt_sourcenotes {
+#kfetzarfml .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2634,7 +2671,7 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   border-right-color: #D3D3D3;
 }
 
-#nljqhifenc .gt_sourcenote {
+#kfetzarfml .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2642,72 +2679,72 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
   padding-right: 5px;
 }
 
-#nljqhifenc .gt_left {
+#kfetzarfml .gt_left {
   text-align: left;
 }
 
-#nljqhifenc .gt_center {
+#kfetzarfml .gt_center {
   text-align: center;
 }
 
-#nljqhifenc .gt_right {
+#kfetzarfml .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nljqhifenc .gt_font_normal {
+#kfetzarfml .gt_font_normal {
   font-weight: normal;
 }
 
-#nljqhifenc .gt_font_bold {
+#kfetzarfml .gt_font_bold {
   font-weight: bold;
 }
 
-#nljqhifenc .gt_font_italic {
+#kfetzarfml .gt_font_italic {
   font-style: italic;
 }
 
-#nljqhifenc .gt_super {
+#kfetzarfml .gt_super {
   font-size: 65%;
 }
 
-#nljqhifenc .gt_footnote_marks {
+#kfetzarfml .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nljqhifenc .gt_asterisk {
+#kfetzarfml .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nljqhifenc .gt_indent_1 {
+#kfetzarfml .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nljqhifenc .gt_indent_2 {
+#kfetzarfml .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nljqhifenc .gt_indent_3 {
+#kfetzarfml .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nljqhifenc .gt_indent_4 {
+#kfetzarfml .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nljqhifenc .gt_indent_5 {
+#kfetzarfml .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nljqhifenc .katex-display {
+#kfetzarfml .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nljqhifenc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kfetzarfml div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2802,40 +2839,11 @@ Table&nbsp;5: Dunn test significane of growth speed between different species if
 </figure>
 </div>
 </div>
-<p>Neither of the used test under assuming normal distribution (ref tbl anova and tukey) or rejecting normal distribution (ref. Kruskal and Dunn) showed significant results between the growth speed of the fungal species.</p>
+<p>Neither of the used tests under assuming normal distribution or rejecting normal distribution (rshowed significant results between the growth speed of the fungal species in this simulated data set.</p>
 </section>
-</section>
-<section id="influence-of-the-inoculum-material-on-the-growth-speed" class="level2">
-<h2 class="anchored" data-anchor-id="influence-of-the-inoculum-material-on-the-growth-speed">Influence of the inoculum material on the growth speed</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>growth_speed_analysis<span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"P.ostreatus v. Floridae"</span>)<span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(growth_speed_analysis,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>species, <span class="at">y=</span>mean_growth_speed, <span class="at">fill=</span> material))<span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean growthspeed by Species"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span><span class="st">"Growth rate [cm^2/day]"</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-4" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="rbtl_report_jules_peter_files/figure-html/fig-4-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Mean growth speed of P. ostreatus v. Floridae depending on inocuum substrate used
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="bacterial-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="bacterial-analysis">Bacterial analysis</h2>
-<p>In this section the bacteria log-change for <em>E. coli</em> and <em>E. faecalis</em> will be analysed. The log change is calculated from the original measured bacteria concentration from the faecal table and the measured value after co-incubation.</p>
+<section id="analysis-of-bacterial-concentration-changes" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-of-bacterial-concentration-changes">Analysis of bacterial concentration changes</h2>
+<p>In this section the bacteria log-change for <em>E. coli</em> and <em>E. faecalis</em> will be analysed. The log change is calculated from the original measured bacteria concentration from the faecal table and the measured value after co-incubation. and shows how many 10 log the bacterial concentration is reduced</p>
 <p>To test the collected data for normal distribution we will make a qq-plot and a shapiro test</p>
 <div class="cell">
 <div id="tbl-6" class="cell quarto-float quarto-figure quarto-figure-center anchored">
@@ -2845,23 +2853,23 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
 </figcaption>
 <div aria-describedby="tbl-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="yipoyyqppo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yipoyyqppo table {
+<div id="xpqhwvaozq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xpqhwvaozq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yipoyyqppo thead, #yipoyyqppo tbody, #yipoyyqppo tfoot, #yipoyyqppo tr, #yipoyyqppo td, #yipoyyqppo th {
+#xpqhwvaozq thead, #xpqhwvaozq tbody, #xpqhwvaozq tfoot, #xpqhwvaozq tr, #xpqhwvaozq td, #xpqhwvaozq th {
   border-style: none;
 }
 
-#yipoyyqppo p {
+#xpqhwvaozq p {
   margin: 0;
   padding: 0;
 }
 
-#yipoyyqppo .gt_table {
+#xpqhwvaozq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2887,12 +2895,12 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-left-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_caption {
+#xpqhwvaozq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yipoyyqppo .gt_title {
+#xpqhwvaozq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2904,7 +2912,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-bottom-width: 0;
 }
 
-#yipoyyqppo .gt_subtitle {
+#xpqhwvaozq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2916,7 +2924,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-top-width: 0;
 }
 
-#yipoyyqppo .gt_heading {
+#xpqhwvaozq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2928,13 +2936,13 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-right-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_bottom_border {
+#xpqhwvaozq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_col_headings {
+#xpqhwvaozq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2949,7 +2957,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-right-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_col_heading {
+#xpqhwvaozq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2969,7 +2977,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   overflow-x: hidden;
 }
 
-#yipoyyqppo .gt_column_spanner_outer {
+#xpqhwvaozq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2981,15 +2989,15 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   padding-right: 4px;
 }
 
-#yipoyyqppo .gt_column_spanner_outer:first-child {
+#xpqhwvaozq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yipoyyqppo .gt_column_spanner_outer:last-child {
+#xpqhwvaozq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yipoyyqppo .gt_column_spanner {
+#xpqhwvaozq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3001,11 +3009,11 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   width: 100%;
 }
 
-#yipoyyqppo .gt_spanner_row {
+#xpqhwvaozq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yipoyyqppo .gt_group_heading {
+#xpqhwvaozq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3031,7 +3039,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   text-align: left;
 }
 
-#yipoyyqppo .gt_empty_group_heading {
+#xpqhwvaozq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3046,15 +3054,15 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   vertical-align: middle;
 }
 
-#yipoyyqppo .gt_from_md > :first-child {
+#xpqhwvaozq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yipoyyqppo .gt_from_md > :last-child {
+#xpqhwvaozq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yipoyyqppo .gt_row {
+#xpqhwvaozq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3073,7 +3081,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   overflow-x: hidden;
 }
 
-#yipoyyqppo .gt_stub {
+#xpqhwvaozq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3086,7 +3094,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   padding-right: 5px;
 }
 
-#yipoyyqppo .gt_stub_row_group {
+#xpqhwvaozq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3100,15 +3108,15 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   vertical-align: top;
 }
 
-#yipoyyqppo .gt_row_group_first td {
+#xpqhwvaozq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yipoyyqppo .gt_row_group_first th {
+#xpqhwvaozq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yipoyyqppo .gt_summary_row {
+#xpqhwvaozq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3118,16 +3126,16 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   padding-right: 5px;
 }
 
-#yipoyyqppo .gt_first_summary_row {
+#xpqhwvaozq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_first_summary_row.thick {
+#xpqhwvaozq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yipoyyqppo .gt_last_summary_row {
+#xpqhwvaozq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3137,7 +3145,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-bottom-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_grand_summary_row {
+#xpqhwvaozq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3147,7 +3155,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   padding-right: 5px;
 }
 
-#yipoyyqppo .gt_first_grand_summary_row {
+#xpqhwvaozq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3157,7 +3165,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-top-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_last_grand_summary_row_top {
+#xpqhwvaozq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3167,11 +3175,11 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-bottom-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_striped {
+#xpqhwvaozq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yipoyyqppo .gt_table_body {
+#xpqhwvaozq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3180,7 +3188,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-bottom-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_footnotes {
+#xpqhwvaozq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3194,7 +3202,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-right-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_footnote {
+#xpqhwvaozq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3203,7 +3211,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   padding-right: 5px;
 }
 
-#yipoyyqppo .gt_sourcenotes {
+#xpqhwvaozq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3217,7 +3225,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   border-right-color: #D3D3D3;
 }
 
-#yipoyyqppo .gt_sourcenote {
+#xpqhwvaozq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3225,72 +3233,72 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
   padding-right: 5px;
 }
 
-#yipoyyqppo .gt_left {
+#xpqhwvaozq .gt_left {
   text-align: left;
 }
 
-#yipoyyqppo .gt_center {
+#xpqhwvaozq .gt_center {
   text-align: center;
 }
 
-#yipoyyqppo .gt_right {
+#xpqhwvaozq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yipoyyqppo .gt_font_normal {
+#xpqhwvaozq .gt_font_normal {
   font-weight: normal;
 }
 
-#yipoyyqppo .gt_font_bold {
+#xpqhwvaozq .gt_font_bold {
   font-weight: bold;
 }
 
-#yipoyyqppo .gt_font_italic {
+#xpqhwvaozq .gt_font_italic {
   font-style: italic;
 }
 
-#yipoyyqppo .gt_super {
+#xpqhwvaozq .gt_super {
   font-size: 65%;
 }
 
-#yipoyyqppo .gt_footnote_marks {
+#xpqhwvaozq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yipoyyqppo .gt_asterisk {
+#xpqhwvaozq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yipoyyqppo .gt_indent_1 {
+#xpqhwvaozq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yipoyyqppo .gt_indent_2 {
+#xpqhwvaozq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yipoyyqppo .gt_indent_3 {
+#xpqhwvaozq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yipoyyqppo .gt_indent_4 {
+#xpqhwvaozq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yipoyyqppo .gt_indent_5 {
+#xpqhwvaozq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yipoyyqppo .katex-display {
+#xpqhwvaozq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yipoyyqppo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xpqhwvaozq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3339,11 +3347,11 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">###qq-plot for each species </span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ecoli_log, <span class="fu">aes</span>(<span class="at">sample =</span> <span class="st">`</span><span class="at">log_change_ecoli</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>( species)) <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>(<span class="at">color =</span> <span class="st">"purple"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">###qq-plot for each species </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ecoli_log, <span class="fu">aes</span>(<span class="at">sample =</span> <span class="st">`</span><span class="at">log_change_ecoli</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>( species)) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>(<span class="at">color =</span> <span class="st">"purple"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-5" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -3351,7 +3359,7 @@ Table&nbsp;6: Shapiro-test for E coli log change in fungal treated faeces compar
 <img src="rbtl_report_jules_peter_files/figure-html/fig-5-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: q-q plot for testing for normal distribution of E. coli log change
+Figure&nbsp;4: q-q plot for testing for normal distribution of E. coli log change
 </figcaption>
 </figure>
 </div>
@@ -3361,27 +3369,27 @@ Figure&nbsp;5: q-q plot for testing for normal distribution of E. coli log chang
 <div id="tbl-7" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces compared to uninoculated control
+Table&nbsp;7: Shapiro-test for E. faecalis log change in fungal treated faeces compared to uninoculated control
 </figcaption>
 <div aria-describedby="tbl-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="gtodozmiko" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gtodozmiko table {
+<div id="vtyfgfckaj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vtyfgfckaj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gtodozmiko thead, #gtodozmiko tbody, #gtodozmiko tfoot, #gtodozmiko tr, #gtodozmiko td, #gtodozmiko th {
+#vtyfgfckaj thead, #vtyfgfckaj tbody, #vtyfgfckaj tfoot, #vtyfgfckaj tr, #vtyfgfckaj td, #vtyfgfckaj th {
   border-style: none;
 }
 
-#gtodozmiko p {
+#vtyfgfckaj p {
   margin: 0;
   padding: 0;
 }
 
-#gtodozmiko .gt_table {
+#vtyfgfckaj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3407,12 +3415,12 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-left-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_caption {
+#vtyfgfckaj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gtodozmiko .gt_title {
+#vtyfgfckaj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3424,7 +3432,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-bottom-width: 0;
 }
 
-#gtodozmiko .gt_subtitle {
+#vtyfgfckaj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3436,7 +3444,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-top-width: 0;
 }
 
-#gtodozmiko .gt_heading {
+#vtyfgfckaj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3448,13 +3456,13 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-right-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_bottom_border {
+#vtyfgfckaj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_col_headings {
+#vtyfgfckaj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3469,7 +3477,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-right-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_col_heading {
+#vtyfgfckaj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3489,7 +3497,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   overflow-x: hidden;
 }
 
-#gtodozmiko .gt_column_spanner_outer {
+#vtyfgfckaj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3501,15 +3509,15 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   padding-right: 4px;
 }
 
-#gtodozmiko .gt_column_spanner_outer:first-child {
+#vtyfgfckaj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gtodozmiko .gt_column_spanner_outer:last-child {
+#vtyfgfckaj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gtodozmiko .gt_column_spanner {
+#vtyfgfckaj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3521,11 +3529,11 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   width: 100%;
 }
 
-#gtodozmiko .gt_spanner_row {
+#vtyfgfckaj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gtodozmiko .gt_group_heading {
+#vtyfgfckaj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3551,7 +3559,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   text-align: left;
 }
 
-#gtodozmiko .gt_empty_group_heading {
+#vtyfgfckaj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3566,15 +3574,15 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   vertical-align: middle;
 }
 
-#gtodozmiko .gt_from_md > :first-child {
+#vtyfgfckaj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gtodozmiko .gt_from_md > :last-child {
+#vtyfgfckaj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gtodozmiko .gt_row {
+#vtyfgfckaj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3593,7 +3601,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   overflow-x: hidden;
 }
 
-#gtodozmiko .gt_stub {
+#vtyfgfckaj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3606,7 +3614,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   padding-right: 5px;
 }
 
-#gtodozmiko .gt_stub_row_group {
+#vtyfgfckaj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3620,15 +3628,15 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   vertical-align: top;
 }
 
-#gtodozmiko .gt_row_group_first td {
+#vtyfgfckaj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gtodozmiko .gt_row_group_first th {
+#vtyfgfckaj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gtodozmiko .gt_summary_row {
+#vtyfgfckaj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3638,16 +3646,16 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   padding-right: 5px;
 }
 
-#gtodozmiko .gt_first_summary_row {
+#vtyfgfckaj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_first_summary_row.thick {
+#vtyfgfckaj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gtodozmiko .gt_last_summary_row {
+#vtyfgfckaj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3657,7 +3665,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-bottom-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_grand_summary_row {
+#vtyfgfckaj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3667,7 +3675,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   padding-right: 5px;
 }
 
-#gtodozmiko .gt_first_grand_summary_row {
+#vtyfgfckaj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3677,7 +3685,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-top-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_last_grand_summary_row_top {
+#vtyfgfckaj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3687,11 +3695,11 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-bottom-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_striped {
+#vtyfgfckaj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gtodozmiko .gt_table_body {
+#vtyfgfckaj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3700,7 +3708,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-bottom-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_footnotes {
+#vtyfgfckaj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3714,7 +3722,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-right-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_footnote {
+#vtyfgfckaj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3723,7 +3731,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   padding-right: 5px;
 }
 
-#gtodozmiko .gt_sourcenotes {
+#vtyfgfckaj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3737,7 +3745,7 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   border-right-color: #D3D3D3;
 }
 
-#gtodozmiko .gt_sourcenote {
+#vtyfgfckaj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3745,72 +3753,72 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
   padding-right: 5px;
 }
 
-#gtodozmiko .gt_left {
+#vtyfgfckaj .gt_left {
   text-align: left;
 }
 
-#gtodozmiko .gt_center {
+#vtyfgfckaj .gt_center {
   text-align: center;
 }
 
-#gtodozmiko .gt_right {
+#vtyfgfckaj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gtodozmiko .gt_font_normal {
+#vtyfgfckaj .gt_font_normal {
   font-weight: normal;
 }
 
-#gtodozmiko .gt_font_bold {
+#vtyfgfckaj .gt_font_bold {
   font-weight: bold;
 }
 
-#gtodozmiko .gt_font_italic {
+#vtyfgfckaj .gt_font_italic {
   font-style: italic;
 }
 
-#gtodozmiko .gt_super {
+#vtyfgfckaj .gt_super {
   font-size: 65%;
 }
 
-#gtodozmiko .gt_footnote_marks {
+#vtyfgfckaj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gtodozmiko .gt_asterisk {
+#vtyfgfckaj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gtodozmiko .gt_indent_1 {
+#vtyfgfckaj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gtodozmiko .gt_indent_2 {
+#vtyfgfckaj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gtodozmiko .gt_indent_3 {
+#vtyfgfckaj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gtodozmiko .gt_indent_4 {
+#vtyfgfckaj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gtodozmiko .gt_indent_5 {
+#vtyfgfckaj .gt_indent_5 {
   text-indent: 25px;
 }
 
-#gtodozmiko .katex-display {
+#vtyfgfckaj .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#gtodozmiko div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vtyfgfckaj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3858,13 +3866,13 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
 </figure>
 </div>
 </div>
-<p>The Shapiro test <strong>(tbl xy)</strong> and the Q-Q plots <strong>(figxy)</strong> are showing that the created log change data for E. coli is normal distributed. This normal distribution allows to use an ANOVA for the data analysis.</p>
+<p>The Shapiro test <a href="#tbl-6" class="quarto-xref">Table&nbsp;6</a> and the Q-Q plots <a href="#fig-5" class="quarto-xref">Figure&nbsp;4</a> showing that the created log change data for <em>E. coli</em> and <em>E. faecalis</em><a href="#tbl-7" class="quarto-xref">Table&nbsp;7</a>and <a href="#fig-6" class="quarto-xref">Figure&nbsp;5</a> is normal distributed. This normal distribution allows to use an ANOVA for the data analysis and a Tukey post-hoc analysis to test between different pairs.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">###qq-plot for each species </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(enterococcus_log, <span class="fu">aes</span>(<span class="at">sample =</span> <span class="st">`</span><span class="at">log_change_enterococcus</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>( species)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>(<span class="at">color =</span> <span class="st">"purple"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">###qq-plot for each species </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(enterococcus_log, <span class="fu">aes</span>(<span class="at">sample =</span> <span class="st">`</span><span class="at">log_change_enterococcus</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>( species)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>(<span class="at">color =</span> <span class="st">"purple"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-6" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -3872,13 +3880,12 @@ Table&nbsp;7: Shapiro-test for Enterococcus log change in fungal treated faeces 
 <img src="rbtl_report_jules_peter_files/figure-html/fig-6-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: q-q plot for testing normal distribution of log-change of Enterococcus
+Figure&nbsp;5: q-q plot for testing normal distribution of log-change of E. faecalis
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Statistical analysis</p>
 <div class="cell">
 <div id="tbl-8" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -3887,23 +3894,23 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
 </figcaption>
 <div aria-describedby="tbl-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="idzkhavxaw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#idzkhavxaw table {
+<div id="ukaiknxxls" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ukaiknxxls table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#idzkhavxaw thead, #idzkhavxaw tbody, #idzkhavxaw tfoot, #idzkhavxaw tr, #idzkhavxaw td, #idzkhavxaw th {
+#ukaiknxxls thead, #ukaiknxxls tbody, #ukaiknxxls tfoot, #ukaiknxxls tr, #ukaiknxxls td, #ukaiknxxls th {
   border-style: none;
 }
 
-#idzkhavxaw p {
+#ukaiknxxls p {
   margin: 0;
   padding: 0;
 }
 
-#idzkhavxaw .gt_table {
+#ukaiknxxls .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3929,12 +3936,12 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-left-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_caption {
+#ukaiknxxls .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#idzkhavxaw .gt_title {
+#ukaiknxxls .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3946,7 +3953,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-bottom-width: 0;
 }
 
-#idzkhavxaw .gt_subtitle {
+#ukaiknxxls .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3958,7 +3965,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-top-width: 0;
 }
 
-#idzkhavxaw .gt_heading {
+#ukaiknxxls .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3970,13 +3977,13 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-right-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_bottom_border {
+#ukaiknxxls .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_col_headings {
+#ukaiknxxls .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3991,7 +3998,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-right-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_col_heading {
+#ukaiknxxls .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4011,7 +4018,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   overflow-x: hidden;
 }
 
-#idzkhavxaw .gt_column_spanner_outer {
+#ukaiknxxls .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4023,15 +4030,15 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   padding-right: 4px;
 }
 
-#idzkhavxaw .gt_column_spanner_outer:first-child {
+#ukaiknxxls .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#idzkhavxaw .gt_column_spanner_outer:last-child {
+#ukaiknxxls .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#idzkhavxaw .gt_column_spanner {
+#ukaiknxxls .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4043,11 +4050,11 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   width: 100%;
 }
 
-#idzkhavxaw .gt_spanner_row {
+#ukaiknxxls .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#idzkhavxaw .gt_group_heading {
+#ukaiknxxls .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4073,7 +4080,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   text-align: left;
 }
 
-#idzkhavxaw .gt_empty_group_heading {
+#ukaiknxxls .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4088,15 +4095,15 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   vertical-align: middle;
 }
 
-#idzkhavxaw .gt_from_md > :first-child {
+#ukaiknxxls .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#idzkhavxaw .gt_from_md > :last-child {
+#ukaiknxxls .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#idzkhavxaw .gt_row {
+#ukaiknxxls .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4115,7 +4122,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   overflow-x: hidden;
 }
 
-#idzkhavxaw .gt_stub {
+#ukaiknxxls .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4128,7 +4135,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   padding-right: 5px;
 }
 
-#idzkhavxaw .gt_stub_row_group {
+#ukaiknxxls .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4142,15 +4149,15 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   vertical-align: top;
 }
 
-#idzkhavxaw .gt_row_group_first td {
+#ukaiknxxls .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#idzkhavxaw .gt_row_group_first th {
+#ukaiknxxls .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#idzkhavxaw .gt_summary_row {
+#ukaiknxxls .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4160,16 +4167,16 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   padding-right: 5px;
 }
 
-#idzkhavxaw .gt_first_summary_row {
+#ukaiknxxls .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_first_summary_row.thick {
+#ukaiknxxls .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#idzkhavxaw .gt_last_summary_row {
+#ukaiknxxls .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4179,7 +4186,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-bottom-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_grand_summary_row {
+#ukaiknxxls .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4189,7 +4196,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   padding-right: 5px;
 }
 
-#idzkhavxaw .gt_first_grand_summary_row {
+#ukaiknxxls .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4199,7 +4206,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-top-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_last_grand_summary_row_top {
+#ukaiknxxls .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4209,11 +4216,11 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-bottom-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_striped {
+#ukaiknxxls .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#idzkhavxaw .gt_table_body {
+#ukaiknxxls .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4222,7 +4229,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-bottom-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_footnotes {
+#ukaiknxxls .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4236,7 +4243,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-right-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_footnote {
+#ukaiknxxls .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4245,7 +4252,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   padding-right: 5px;
 }
 
-#idzkhavxaw .gt_sourcenotes {
+#ukaiknxxls .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4259,7 +4266,7 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   border-right-color: #D3D3D3;
 }
 
-#idzkhavxaw .gt_sourcenote {
+#ukaiknxxls .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4267,72 +4274,72 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
   padding-right: 5px;
 }
 
-#idzkhavxaw .gt_left {
+#ukaiknxxls .gt_left {
   text-align: left;
 }
 
-#idzkhavxaw .gt_center {
+#ukaiknxxls .gt_center {
   text-align: center;
 }
 
-#idzkhavxaw .gt_right {
+#ukaiknxxls .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#idzkhavxaw .gt_font_normal {
+#ukaiknxxls .gt_font_normal {
   font-weight: normal;
 }
 
-#idzkhavxaw .gt_font_bold {
+#ukaiknxxls .gt_font_bold {
   font-weight: bold;
 }
 
-#idzkhavxaw .gt_font_italic {
+#ukaiknxxls .gt_font_italic {
   font-style: italic;
 }
 
-#idzkhavxaw .gt_super {
+#ukaiknxxls .gt_super {
   font-size: 65%;
 }
 
-#idzkhavxaw .gt_footnote_marks {
+#ukaiknxxls .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#idzkhavxaw .gt_asterisk {
+#ukaiknxxls .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#idzkhavxaw .gt_indent_1 {
+#ukaiknxxls .gt_indent_1 {
   text-indent: 5px;
 }
 
-#idzkhavxaw .gt_indent_2 {
+#ukaiknxxls .gt_indent_2 {
   text-indent: 10px;
 }
 
-#idzkhavxaw .gt_indent_3 {
+#ukaiknxxls .gt_indent_3 {
   text-indent: 15px;
 }
 
-#idzkhavxaw .gt_indent_4 {
+#ukaiknxxls .gt_indent_4 {
   text-indent: 20px;
 }
 
-#idzkhavxaw .gt_indent_5 {
+#ukaiknxxls .gt_indent_5 {
   text-indent: 25px;
 }
 
-#idzkhavxaw .katex-display {
+#ukaiknxxls .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#idzkhavxaw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ukaiknxxls div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4369,16 +4376,16 @@ Table&nbsp;8: ANOVA for testing of significant differences in E. coli logchange 
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tukey_results <span class="ot">&lt;-</span> ecoli_log <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(log_change_ecoli <span class="sc">~</span> species)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add significance symbols/letters</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>tukey_results_formatted <span class="ot">&lt;-</span> tukey_results <span class="sc">|&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">add_significance</span>(<span class="st">"p.adj"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj =</span> scales<span class="sc">::</span><span class="fu">pvalue</span>(p.adj))</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>tukey_results_formatted<span class="sc">|&gt;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tukey_results <span class="ot">&lt;-</span> ecoli_log <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(log_change_ecoli <span class="sc">~</span> species)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add significance symbols/letters</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>tukey_results_formatted <span class="ot">&lt;-</span> tukey_results <span class="sc">|&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">add_significance</span>(<span class="st">"p.adj"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj =</span> scales<span class="sc">::</span><span class="fu">pvalue</span>(p.adj))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>tukey_results_formatted<span class="sc">|&gt;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-9" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -4386,23 +4393,23 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
 </figcaption>
 <div aria-describedby="tbl-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="srtfxxitcc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#srtfxxitcc table {
+<div id="mphpsgnpaf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mphpsgnpaf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#srtfxxitcc thead, #srtfxxitcc tbody, #srtfxxitcc tfoot, #srtfxxitcc tr, #srtfxxitcc td, #srtfxxitcc th {
+#mphpsgnpaf thead, #mphpsgnpaf tbody, #mphpsgnpaf tfoot, #mphpsgnpaf tr, #mphpsgnpaf td, #mphpsgnpaf th {
   border-style: none;
 }
 
-#srtfxxitcc p {
+#mphpsgnpaf p {
   margin: 0;
   padding: 0;
 }
 
-#srtfxxitcc .gt_table {
+#mphpsgnpaf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4428,12 +4435,12 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-left-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_caption {
+#mphpsgnpaf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#srtfxxitcc .gt_title {
+#mphpsgnpaf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4445,7 +4452,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-bottom-width: 0;
 }
 
-#srtfxxitcc .gt_subtitle {
+#mphpsgnpaf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4457,7 +4464,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-top-width: 0;
 }
 
-#srtfxxitcc .gt_heading {
+#mphpsgnpaf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4469,13 +4476,13 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-right-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_bottom_border {
+#mphpsgnpaf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_col_headings {
+#mphpsgnpaf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4490,7 +4497,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-right-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_col_heading {
+#mphpsgnpaf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4510,7 +4517,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   overflow-x: hidden;
 }
 
-#srtfxxitcc .gt_column_spanner_outer {
+#mphpsgnpaf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4522,15 +4529,15 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   padding-right: 4px;
 }
 
-#srtfxxitcc .gt_column_spanner_outer:first-child {
+#mphpsgnpaf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#srtfxxitcc .gt_column_spanner_outer:last-child {
+#mphpsgnpaf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#srtfxxitcc .gt_column_spanner {
+#mphpsgnpaf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4542,11 +4549,11 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   width: 100%;
 }
 
-#srtfxxitcc .gt_spanner_row {
+#mphpsgnpaf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#srtfxxitcc .gt_group_heading {
+#mphpsgnpaf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4572,7 +4579,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   text-align: left;
 }
 
-#srtfxxitcc .gt_empty_group_heading {
+#mphpsgnpaf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4587,15 +4594,15 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   vertical-align: middle;
 }
 
-#srtfxxitcc .gt_from_md > :first-child {
+#mphpsgnpaf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#srtfxxitcc .gt_from_md > :last-child {
+#mphpsgnpaf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#srtfxxitcc .gt_row {
+#mphpsgnpaf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4614,7 +4621,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   overflow-x: hidden;
 }
 
-#srtfxxitcc .gt_stub {
+#mphpsgnpaf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4627,7 +4634,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   padding-right: 5px;
 }
 
-#srtfxxitcc .gt_stub_row_group {
+#mphpsgnpaf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4641,15 +4648,15 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   vertical-align: top;
 }
 
-#srtfxxitcc .gt_row_group_first td {
+#mphpsgnpaf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#srtfxxitcc .gt_row_group_first th {
+#mphpsgnpaf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#srtfxxitcc .gt_summary_row {
+#mphpsgnpaf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4659,16 +4666,16 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   padding-right: 5px;
 }
 
-#srtfxxitcc .gt_first_summary_row {
+#mphpsgnpaf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_first_summary_row.thick {
+#mphpsgnpaf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#srtfxxitcc .gt_last_summary_row {
+#mphpsgnpaf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4678,7 +4685,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-bottom-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_grand_summary_row {
+#mphpsgnpaf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4688,7 +4695,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   padding-right: 5px;
 }
 
-#srtfxxitcc .gt_first_grand_summary_row {
+#mphpsgnpaf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4698,7 +4705,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-top-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_last_grand_summary_row_top {
+#mphpsgnpaf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4708,11 +4715,11 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-bottom-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_striped {
+#mphpsgnpaf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#srtfxxitcc .gt_table_body {
+#mphpsgnpaf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4721,7 +4728,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-bottom-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_footnotes {
+#mphpsgnpaf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4735,7 +4742,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-right-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_footnote {
+#mphpsgnpaf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4744,7 +4751,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   padding-right: 5px;
 }
 
-#srtfxxitcc .gt_sourcenotes {
+#mphpsgnpaf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4758,7 +4765,7 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   border-right-color: #D3D3D3;
 }
 
-#srtfxxitcc .gt_sourcenote {
+#mphpsgnpaf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4766,72 +4773,72 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
   padding-right: 5px;
 }
 
-#srtfxxitcc .gt_left {
+#mphpsgnpaf .gt_left {
   text-align: left;
 }
 
-#srtfxxitcc .gt_center {
+#mphpsgnpaf .gt_center {
   text-align: center;
 }
 
-#srtfxxitcc .gt_right {
+#mphpsgnpaf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#srtfxxitcc .gt_font_normal {
+#mphpsgnpaf .gt_font_normal {
   font-weight: normal;
 }
 
-#srtfxxitcc .gt_font_bold {
+#mphpsgnpaf .gt_font_bold {
   font-weight: bold;
 }
 
-#srtfxxitcc .gt_font_italic {
+#mphpsgnpaf .gt_font_italic {
   font-style: italic;
 }
 
-#srtfxxitcc .gt_super {
+#mphpsgnpaf .gt_super {
   font-size: 65%;
 }
 
-#srtfxxitcc .gt_footnote_marks {
+#mphpsgnpaf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#srtfxxitcc .gt_asterisk {
+#mphpsgnpaf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#srtfxxitcc .gt_indent_1 {
+#mphpsgnpaf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#srtfxxitcc .gt_indent_2 {
+#mphpsgnpaf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#srtfxxitcc .gt_indent_3 {
+#mphpsgnpaf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#srtfxxitcc .gt_indent_4 {
+#mphpsgnpaf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#srtfxxitcc .gt_indent_5 {
+#mphpsgnpaf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#srtfxxitcc .katex-display {
+#mphpsgnpaf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#srtfxxitcc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mphpsgnpaf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4930,27 +4937,27 @@ Table&nbsp;9: Tukey for pairwise comparison of E. coli logchange in different fu
 <div id="tbl-10" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logchange in different fungal species and control
+Table&nbsp;10: ANOVA for testing of significant differences in E. faecalis logchange in different fungal species and control
 </figcaption>
 <div aria-describedby="tbl-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="eekggbujdb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#eekggbujdb table {
+<div id="kpgzioudgf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kpgzioudgf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#eekggbujdb thead, #eekggbujdb tbody, #eekggbujdb tfoot, #eekggbujdb tr, #eekggbujdb td, #eekggbujdb th {
+#kpgzioudgf thead, #kpgzioudgf tbody, #kpgzioudgf tfoot, #kpgzioudgf tr, #kpgzioudgf td, #kpgzioudgf th {
   border-style: none;
 }
 
-#eekggbujdb p {
+#kpgzioudgf p {
   margin: 0;
   padding: 0;
 }
 
-#eekggbujdb .gt_table {
+#kpgzioudgf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4976,12 +4983,12 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-left-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_caption {
+#kpgzioudgf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#eekggbujdb .gt_title {
+#kpgzioudgf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4993,7 +5000,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-bottom-width: 0;
 }
 
-#eekggbujdb .gt_subtitle {
+#kpgzioudgf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -5005,7 +5012,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-top-width: 0;
 }
 
-#eekggbujdb .gt_heading {
+#kpgzioudgf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -5017,13 +5024,13 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-right-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_bottom_border {
+#kpgzioudgf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_col_headings {
+#kpgzioudgf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5038,7 +5045,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-right-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_col_heading {
+#kpgzioudgf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5058,7 +5065,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   overflow-x: hidden;
 }
 
-#eekggbujdb .gt_column_spanner_outer {
+#kpgzioudgf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5070,15 +5077,15 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   padding-right: 4px;
 }
 
-#eekggbujdb .gt_column_spanner_outer:first-child {
+#kpgzioudgf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eekggbujdb .gt_column_spanner_outer:last-child {
+#kpgzioudgf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eekggbujdb .gt_column_spanner {
+#kpgzioudgf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -5090,11 +5097,11 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   width: 100%;
 }
 
-#eekggbujdb .gt_spanner_row {
+#kpgzioudgf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#eekggbujdb .gt_group_heading {
+#kpgzioudgf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5120,7 +5127,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   text-align: left;
 }
 
-#eekggbujdb .gt_empty_group_heading {
+#kpgzioudgf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5135,15 +5142,15 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   vertical-align: middle;
 }
 
-#eekggbujdb .gt_from_md > :first-child {
+#kpgzioudgf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eekggbujdb .gt_from_md > :last-child {
+#kpgzioudgf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eekggbujdb .gt_row {
+#kpgzioudgf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5162,7 +5169,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   overflow-x: hidden;
 }
 
-#eekggbujdb .gt_stub {
+#kpgzioudgf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5175,7 +5182,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   padding-right: 5px;
 }
 
-#eekggbujdb .gt_stub_row_group {
+#kpgzioudgf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5189,15 +5196,15 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   vertical-align: top;
 }
 
-#eekggbujdb .gt_row_group_first td {
+#kpgzioudgf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#eekggbujdb .gt_row_group_first th {
+#kpgzioudgf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#eekggbujdb .gt_summary_row {
+#kpgzioudgf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5207,16 +5214,16 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   padding-right: 5px;
 }
 
-#eekggbujdb .gt_first_summary_row {
+#kpgzioudgf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_first_summary_row.thick {
+#kpgzioudgf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#eekggbujdb .gt_last_summary_row {
+#kpgzioudgf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5226,7 +5233,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-bottom-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_grand_summary_row {
+#kpgzioudgf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5236,7 +5243,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   padding-right: 5px;
 }
 
-#eekggbujdb .gt_first_grand_summary_row {
+#kpgzioudgf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5246,7 +5253,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-top-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_last_grand_summary_row_top {
+#kpgzioudgf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5256,11 +5263,11 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-bottom-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_striped {
+#kpgzioudgf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eekggbujdb .gt_table_body {
+#kpgzioudgf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5269,7 +5276,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-bottom-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_footnotes {
+#kpgzioudgf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5283,7 +5290,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-right-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_footnote {
+#kpgzioudgf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -5292,7 +5299,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   padding-right: 5px;
 }
 
-#eekggbujdb .gt_sourcenotes {
+#kpgzioudgf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5306,7 +5313,7 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   border-right-color: #D3D3D3;
 }
 
-#eekggbujdb .gt_sourcenote {
+#kpgzioudgf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5314,72 +5321,72 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
   padding-right: 5px;
 }
 
-#eekggbujdb .gt_left {
+#kpgzioudgf .gt_left {
   text-align: left;
 }
 
-#eekggbujdb .gt_center {
+#kpgzioudgf .gt_center {
   text-align: center;
 }
 
-#eekggbujdb .gt_right {
+#kpgzioudgf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eekggbujdb .gt_font_normal {
+#kpgzioudgf .gt_font_normal {
   font-weight: normal;
 }
 
-#eekggbujdb .gt_font_bold {
+#kpgzioudgf .gt_font_bold {
   font-weight: bold;
 }
 
-#eekggbujdb .gt_font_italic {
+#kpgzioudgf .gt_font_italic {
   font-style: italic;
 }
 
-#eekggbujdb .gt_super {
+#kpgzioudgf .gt_super {
   font-size: 65%;
 }
 
-#eekggbujdb .gt_footnote_marks {
+#kpgzioudgf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#eekggbujdb .gt_asterisk {
+#kpgzioudgf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#eekggbujdb .gt_indent_1 {
+#kpgzioudgf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#eekggbujdb .gt_indent_2 {
+#kpgzioudgf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#eekggbujdb .gt_indent_3 {
+#kpgzioudgf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#eekggbujdb .gt_indent_4 {
+#kpgzioudgf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#eekggbujdb .gt_indent_5 {
+#kpgzioudgf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#eekggbujdb .katex-display {
+#kpgzioudgf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#eekggbujdb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kpgzioudgf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -5416,34 +5423,34 @@ Table&nbsp;10: ANOVA for testing of significant differences in Enterococcus logc
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tukey_results <span class="ot">&lt;-</span> enterococcus_log <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(log_change_enterococcus <span class="sc">~</span> species)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>tukey_results<span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tukey_results <span class="ot">&lt;-</span> enterococcus_log <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(log_change_enterococcus <span class="sc">~</span> species)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tukey_results<span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-11" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in different fungal species and control
+Table&nbsp;11: Tukey for pairwise comparison of E. faecalis log-change in different fungal species and control
 </figcaption>
 <div aria-describedby="tbl-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="ajhwmbxpsh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ajhwmbxpsh table {
+<div id="ziscaiukcl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ziscaiukcl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ajhwmbxpsh thead, #ajhwmbxpsh tbody, #ajhwmbxpsh tfoot, #ajhwmbxpsh tr, #ajhwmbxpsh td, #ajhwmbxpsh th {
+#ziscaiukcl thead, #ziscaiukcl tbody, #ziscaiukcl tfoot, #ziscaiukcl tr, #ziscaiukcl td, #ziscaiukcl th {
   border-style: none;
 }
 
-#ajhwmbxpsh p {
+#ziscaiukcl p {
   margin: 0;
   padding: 0;
 }
 
-#ajhwmbxpsh .gt_table {
+#ziscaiukcl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -5469,12 +5476,12 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-left-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_caption {
+#ziscaiukcl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ajhwmbxpsh .gt_title {
+#ziscaiukcl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -5486,7 +5493,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-bottom-width: 0;
 }
 
-#ajhwmbxpsh .gt_subtitle {
+#ziscaiukcl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -5498,7 +5505,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-top-width: 0;
 }
 
-#ajhwmbxpsh .gt_heading {
+#ziscaiukcl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -5510,13 +5517,13 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-right-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_bottom_border {
+#ziscaiukcl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_col_headings {
+#ziscaiukcl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5531,7 +5538,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-right-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_col_heading {
+#ziscaiukcl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5551,7 +5558,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   overflow-x: hidden;
 }
 
-#ajhwmbxpsh .gt_column_spanner_outer {
+#ziscaiukcl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5563,15 +5570,15 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   padding-right: 4px;
 }
 
-#ajhwmbxpsh .gt_column_spanner_outer:first-child {
+#ziscaiukcl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ajhwmbxpsh .gt_column_spanner_outer:last-child {
+#ziscaiukcl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ajhwmbxpsh .gt_column_spanner {
+#ziscaiukcl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -5583,11 +5590,11 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   width: 100%;
 }
 
-#ajhwmbxpsh .gt_spanner_row {
+#ziscaiukcl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ajhwmbxpsh .gt_group_heading {
+#ziscaiukcl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5613,7 +5620,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   text-align: left;
 }
 
-#ajhwmbxpsh .gt_empty_group_heading {
+#ziscaiukcl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5628,15 +5635,15 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   vertical-align: middle;
 }
 
-#ajhwmbxpsh .gt_from_md > :first-child {
+#ziscaiukcl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ajhwmbxpsh .gt_from_md > :last-child {
+#ziscaiukcl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ajhwmbxpsh .gt_row {
+#ziscaiukcl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5655,7 +5662,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   overflow-x: hidden;
 }
 
-#ajhwmbxpsh .gt_stub {
+#ziscaiukcl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5668,7 +5675,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   padding-right: 5px;
 }
 
-#ajhwmbxpsh .gt_stub_row_group {
+#ziscaiukcl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5682,15 +5689,15 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   vertical-align: top;
 }
 
-#ajhwmbxpsh .gt_row_group_first td {
+#ziscaiukcl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ajhwmbxpsh .gt_row_group_first th {
+#ziscaiukcl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ajhwmbxpsh .gt_summary_row {
+#ziscaiukcl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5700,16 +5707,16 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   padding-right: 5px;
 }
 
-#ajhwmbxpsh .gt_first_summary_row {
+#ziscaiukcl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_first_summary_row.thick {
+#ziscaiukcl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ajhwmbxpsh .gt_last_summary_row {
+#ziscaiukcl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5719,7 +5726,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-bottom-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_grand_summary_row {
+#ziscaiukcl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5729,7 +5736,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   padding-right: 5px;
 }
 
-#ajhwmbxpsh .gt_first_grand_summary_row {
+#ziscaiukcl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5739,7 +5746,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-top-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_last_grand_summary_row_top {
+#ziscaiukcl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5749,11 +5756,11 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-bottom-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_striped {
+#ziscaiukcl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ajhwmbxpsh .gt_table_body {
+#ziscaiukcl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5762,7 +5769,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-bottom-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_footnotes {
+#ziscaiukcl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5776,7 +5783,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-right-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_footnote {
+#ziscaiukcl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -5785,7 +5792,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   padding-right: 5px;
 }
 
-#ajhwmbxpsh .gt_sourcenotes {
+#ziscaiukcl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5799,7 +5806,7 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   border-right-color: #D3D3D3;
 }
 
-#ajhwmbxpsh .gt_sourcenote {
+#ziscaiukcl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5807,72 +5814,72 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
   padding-right: 5px;
 }
 
-#ajhwmbxpsh .gt_left {
+#ziscaiukcl .gt_left {
   text-align: left;
 }
 
-#ajhwmbxpsh .gt_center {
+#ziscaiukcl .gt_center {
   text-align: center;
 }
 
-#ajhwmbxpsh .gt_right {
+#ziscaiukcl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ajhwmbxpsh .gt_font_normal {
+#ziscaiukcl .gt_font_normal {
   font-weight: normal;
 }
 
-#ajhwmbxpsh .gt_font_bold {
+#ziscaiukcl .gt_font_bold {
   font-weight: bold;
 }
 
-#ajhwmbxpsh .gt_font_italic {
+#ziscaiukcl .gt_font_italic {
   font-style: italic;
 }
 
-#ajhwmbxpsh .gt_super {
+#ziscaiukcl .gt_super {
   font-size: 65%;
 }
 
-#ajhwmbxpsh .gt_footnote_marks {
+#ziscaiukcl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ajhwmbxpsh .gt_asterisk {
+#ziscaiukcl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ajhwmbxpsh .gt_indent_1 {
+#ziscaiukcl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ajhwmbxpsh .gt_indent_2 {
+#ziscaiukcl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ajhwmbxpsh .gt_indent_3 {
+#ziscaiukcl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ajhwmbxpsh .gt_indent_4 {
+#ziscaiukcl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ajhwmbxpsh .gt_indent_5 {
+#ziscaiukcl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ajhwmbxpsh .katex-display {
+#ziscaiukcl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ajhwmbxpsh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ziscaiukcl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -5969,40 +5976,38 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
 </div>
 <p>Graphical of the log change for both bacteria compared to control</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Both in one plot preparing data</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>log_change_both <span class="ot">&lt;-</span> bacteria_analysis <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select both log-change columns</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"log_change_"</span>), </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># New column for bacteria type</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"bacteria"</span>, </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># New column for log-change values</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"log_change"</span>            </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>log_change_both<span class="sc">$</span>species <span class="ot">&lt;-</span> <span class="fu">factor</span>(log_change_both<span class="sc">$</span>species, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"P.ostreatus v. Floridae"</span>, <span class="st">"C.comatus"</span>, <span class="st">"faecal isolate 1"</span>))</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>y_markings <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="at">by =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Both in one plot preparing data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>log_change_both <span class="ot">&lt;-</span> bacteria_analysis <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select both log-change columns</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"log_change_"</span>), </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># New column for bacteria type</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"bacteria"</span>, </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># New column for log-change values</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"log_change"</span>            </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>log_change_both<span class="sc">$</span>species <span class="ot">&lt;-</span> <span class="fu">factor</span>(log_change_both<span class="sc">$</span>species, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"P.ostreatus v. Floridae"</span>, <span class="st">"C.comatus"</span>, <span class="st">"faecal isolate 1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(log_change_both, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> log_change, <span class="at">fill =</span> bacteria)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Log Change"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Bacteria Species"</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Bacterial Log Change Comparison by Species"</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"log_change_ecoli"</span> <span class="ot">=</span> <span class="st">"purple"</span>, <span class="st">"log_change_enterococcus"</span> <span class="ot">=</span> <span class="st">"coral"</span>),</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"E. coli"</span>, <span class="st">"Enterococcus"</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Making lines separating the different species</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2.5</span>,  <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>), <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(log_change_both, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> log_change, <span class="at">fill =</span> bacteria)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Log Change"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Bacteria Species"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Bacterial Log Change Comparison by Species"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"log_change_ecoli"</span> <span class="ot">=</span> <span class="st">"purple"</span>, <span class="st">"log_change_enterococcus"</span> <span class="ot">=</span> <span class="st">"coral"</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"E. coli"</span>, <span class="st">"E. faecalis"</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Making lines separating the different species</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2.5</span>,  <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>), <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-7" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -6010,18 +6015,18 @@ Table&nbsp;11: Tukey for pairwise comparison of Enterococcus log-change in diffe
 <img src="rbtl_report_jules_peter_files/figure-html/fig-7-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Boxplot comparing log change for E. coli and Enterococcus between treatments
+Figure&nbsp;6: Boxplot comparing log change for E. coli and E. faeclis between treatments
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>In the created data set there are significant differences in E. coli log change as showed in <strong>(tbl xy)</strong> significant difference in Ecoli log change as shown in <strong>(tbl xy)</strong> the fungal species and the control treatment. The difference between Faecal isolate 1 and the control is not significant in the example data set. For enterococcus the species P ostreatsu is significant higher than the other three treatments. However the other three treatments are not significantly different in this example data set.</p>
+<p>In the created data set there are significant differences in <em>E. coli</em> and <em>E. faecalis</em> log change between the groups p &lt;0.05 <a href="#tbl-8" class="quarto-xref">Table&nbsp;8</a> and <a href="#tbl-11" class="quarto-xref">Table&nbsp;11</a>. The Tukey post-hoc analysis for <em>E. coli</em><a href="#tbl-9" class="quarto-xref">Table&nbsp;9</a> shows that the fungal treatment using <em>P. ostreatus</em> and <em>C. comatus</em> are significantly different to the control and the faecal isolate 1. While the control and faecal isolate one are not different to each other. For <em>E. faecalis</em> the <em>P. ostreatus</em> is significant higher compared to all the other treatments while the other treatment s are not different to each other <strong>?@tbl-12</strong>.</p>
 </section>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
-<p>The produced data structure and scripts can be used on the test data set, to visualize mean growth speed differences between species. With the Bacterial And would allow for analysis of growth speed analysis of fungal data and bacterial concentration change analysis on faeces. To test the data on the real created data will be a future challenge and adaptions have to be implemented depending on how the experiment setup will change.</p>
+<p>The produced data structure and scripts can be used on the test data set, to visualize mean growth speed differences between species and log-change of bacterial concentrations before and after fungal growth. The statistical tests ANOVA and Tukey can be used to test normal distributed data while Kruskal -Wallis and Dunn test can be used for the not normal distributed data. To test the data on the real created data will be a future challenge and adaptions have to be implemented depending on how the experiment setup will change.</p>
 </section>
 <section id="references" class="level1 unnumbered">
 
@@ -6029,13 +6034,22 @@ Figure&nbsp;7: Boxplot comparing log change for E. coli and Enterococcus between
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-diarrhea" class="csl-entry" role="listitem">
-<em>Diarrheal disease deaths in children under five by risk factor</em>. (n.d.). <a href="https://ourworldindata.org/grapher/number-of-deaths-from-diarrheal-diseases-by-risk-factor-for-under-5s">https://ourworldindata.org/grapher/number-of-deaths-from-diarrheal-diseases-by-risk-factor-for-under-5s</a>
+<div id="ref-berg2020" class="csl-entry" role="listitem">
+Berg, B., &amp; McClaugherty, C. (2020). <em>Decomposer Organisms</em> (B. Berg &amp; C. McClaugherty, Eds.; pp. 45–65). Springer International Publishing. <a href="https://doi.org/10.1007/978-3-030-59631-6_3">https://doi.org/10.1007/978-3-030-59631-6_3</a>
+</div>
+<div id="ref-kombrink2019inductiona" class="csl-entry" role="listitem">
+Kombrink, A., Tayyrov, A., Essig, A., Stöckli, M., Micheller, S., Hintze, J., Heuvel, Y. van, Dürig, N., Lin, C., Kallio, P. T., Aebi, M., &amp; Künzler, M. (2019). Induction of antibacterial proteins and peptides in the coprophilous mushroom coprinopsis cinerea in response to bacteria. <em>The ISME Journal</em>, <em>13</em>(3), 588–602. <a href="https://doi.org/10.1038/s41396-018-0293-8">https://doi.org/10.1038/s41396-018-0293-8</a>
+</div>
+<div id="ref-kumwenda2017" class="csl-entry" role="listitem">
+Kumwenda, S., Msefula, C., Kadewa, W., Ngwira, B., &amp; Morse, T. (2017). Estimating the Health Risk Associated with the Use of Ecological Sanitation Toilets in Malawi. <em>Journal of Environmental and Public Health</em>, <em>2017</em>(1), 3931802. <a href="https://doi.org/10.1155/2017/3931802">https://doi.org/10.1155/2017/3931802</a>
+</div>
+<div id="ref-population" class="csl-entry" role="listitem">
+<em>Population using safely managed sanitation services (</em>. (n.d.). <a href="https://www.who.int/data/gho/data/indicators/indicator-details/GHO/population-using-safely-managed-sanitation-services-(-)">https://www.who.int/data/gho/data/indicators/indicator-details/GHO/population-using-safely-managed-sanitation-services-(-)</a>
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{peter2025,
   author = {Peter, Jules},
   title = {Fungal {Faecal} {Treatment}},
-  date = {2025-05-23},
+  date = {2025-05-27},
   url = {https://www.example.com},
   langid = {en},
   abstract = {Around 43\% of worlds population does not have access to
@@ -6044,12 +6058,11 @@ Figure&nbsp;7: Boxplot comparing log change for E. coli and Enterococcus between
     fungal species that grow on human faeces and help reduce
     concentrations of faecal indicator bacteria. To be able to compare
     the growth speed and antibacterial effect of different fungal
-    species a data analysis is necessary. With this report I created a
-    script showing a possible way to analyse the to be collected data.
-    The script in for these report was used on a made up data set.}
+    species a data analysis is necessary. With this report the way to
+    manage and analyse the data was created.}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-peter2025" class="csl-entry quarto-appendix-citeas" role="listitem">
-Peter, J. (2025, May 23). <em>Fungal Faecal Treatment</em>. My Blog. <a href="https://www.example.com">https://www.example.com</a>
+Peter, J. (2025, May 27). <em>Fungal Faecal Treatment</em>. My Blog. <a href="https://www.example.com">https://www.example.com</a>
 </div></div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
