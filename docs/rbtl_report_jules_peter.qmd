@@ -36,15 +36,7 @@ Within this lecture of Research beyond the lab (RBTL) the code for data cleaning
 
 # Methods
 
-The data structure will be created in the following way. [@fig-1]
-
-```{r}
-#| label: fig-1
-#| fig-cap: "Datastructure to be used in the experiments,The tables on the left will be linked over a experimnt table. Two tables will be created one to analyse the growth and one to analyse the change of bacterial concentrations" 
-knitr::include_graphics("images/data_structure.jpg")
-```
-
-For the different task of the experiment separate tables will be generated.
+For the different steps of the experiment separate tables will be generated. [@fig-1]
 
 -   faeces_1_1: Contains the data of the faecal collection creating one row of data for each faecal collection campaign.
 -   inoculum_1_1: Stores the data for the inoculum used in the experiments.
@@ -52,7 +44,17 @@ For the different task of the experiment separate tables will be generated.
 -   growth_speed_analysis_1_1: In this table each row will refer to a area size measured by image analysis for each picture
 -   experiments_1_1: This table will store the experimental set up linking together all the tables using shared IDs
 
-Tables will be created using google_sheets, and stored on google drive. Data analysis and figures are created using R (Rstudio V.2025.05.0 Build 496). An R-script for Loading the relevant data (01-data_download) another one cleans the data and prepare it for the analysis (02-data_cleaning.R). These R scripts are stored in the folder fungal-faecal-treatment/R. Data files being saved in the folder data processed with their corresponding name for the analysis as CSV files. (growth_speed_analysis and bacteria_analysis)
+```{r}
+#| label: fig-1
+#| fig-cap: "Datastructure to be used in the experiments,The tables on the left will be linked over a experimnt table. Two tables will be created one to analyse the growth and one to analyse the change of bacterial concentrations" 
+knitr::include_graphics("images/data_structure.jpg")
+```
+
+Tables will be created using google_sheets, and stored on google drive. Data analysis and figures are created using R (Rstudio V.2025.05.0 Build 496).
+
+R-script for Loading the relevant data (01-data_download) and for cleaning the data and prepare it for the analysis (02-data_cleaning.R) will be created. These R scripts are stored in the folder Project-Jules-Peter/R. Data files being saved in the folder data processed with their corresponding name for the analysis as CSV files. (growth_speed_analysis and bacteria_analysis)
+
+Data for these analysis is created by entering random numbers that are in a realistic range to be expected in the real experiments.
 
 # Results
 
@@ -93,7 +95,7 @@ ggplot(mean_growth_speed_species, aes(sample = `mean_growth_speed`)) +
   geom_qq_line(color = "purple")
 ```
 
-The Q-Q plot [@fig-2] indicates that the growth speed of C. comatus follows normal distribution, for Faecal Isolate 1 there is a slight deviation from the line which indicates some deviation from a normal distribution. For P. ostreatus the data seems to be skewed in both ends which suggest that the data does not follow normal distribution. The Shapiro test [@tbl-1] on the data showed that *P. ostreatus* does not follow normal distribution.
+The Q-Q plot [@fig-2] indicates that the growth speed of *Coprinus comatus* follows normal distribution, for Faecal Isolate 1 there is a slight deviation from the line which indicates some deviation from a normal distribution. For *Pleurotus ostreatus* the data seems to be skewed in both ends which suggest that the data does not follow normal distribution.
 
 ```{r}
 #| label: tbl-1
@@ -109,7 +111,7 @@ shapiro_mean_growth_speed_species|>
 
 ```
 
-The shapiro test verifies the normal distribution for *C. comatus* and faecal isolate 1 while it shows violation of normal distribution for *P. ostreatus v. Floridae.* [@fig-3] shows the median of the mean growth speed and distribution of the different fungal species in a Box-plot. Also here we can see that the median of *P. ostreatus* is shifted.
+The Shapiro-Wilk test verifies the normal distribution for *C. comatus* and faecal isolate 1 while it shows violation of normal distribution for *P. ostreatus v. Floridae* [@tbl-1]*.* [@fig-3] shows the median of the mean growth speed and distribution of the different fungal species in a Box-plot. Also here we can see that the median of *P. ostreatus* is shifted to the lower quantile.
 
 ```{r}
 #| label: fig-3
@@ -128,7 +130,7 @@ growth_speed_analysis|>
   geom_boxplot()
 ```
 
-Since the mean growth speed is not normal distributed it would be recommended to use a test that allows not normal distributed data like Kruskal-Wallis test. This script should be able to handle both cases first an analysis of variance (anova) is done on the data set. To test if the mean growth of the different fungi are different from each other. The anova [@tbl-2] with a Tukey post-hoc analysis analysis [@tbl-3] shows that there is no significant difference in the mean growth speed between the different species for any of the pairs.
+As the mean growth speed is not normally distributed, a non-parametric test like the Kruskal-Wallis test would usually be recommended. But with the prepared script we want to be able to test both options. To test for differences in the mean growth among the different fungi with normally distributed growth speed values, an analysis of variance (ANOVA) was conducted on the dataset. The ANOVA [@tbl-2] followed by a Tukey post-hoc analysis [@tbl-3] indicated no significant difference in the mean growth speed between any of the species pairs
 
 ```{r}
 #| label: tbl-2
@@ -158,7 +160,7 @@ growth_speed_tukey_results|>
   gt()
 ```
 
-To complete the test setting the data will also be analysed using statistical tests that do not need normal distributed data. In this case a Kruskal-Wallis test [@tbl-4] and a Dunn post-hoc analysis [@tbl-5] are done
+To complete the test setting the data will also be analysed using a non parametric test. In this case a Kruskal-Wallis test [@tbl-4] and a Dunn post-hoc analysis [@tbl-5] are done
 
 ```{r}
 #| label: tbl-4
@@ -193,13 +195,11 @@ dunn_result <- growth_speed_analysis |>
 dunn_result
 ```
 
-Neither of the used tests under assuming normal distribution or rejecting normal distribution (rshowed significant results between the growth speed of the fungal species in this simulated data set.
+Neither of the used tests under assuming normal distribution or rejecting normal distribution showed significant results between the growth speed of the fungal species in this simulated data set.
 
 ## Analysis of bacterial concentration changes
 
-In this section the bacteria log-change for *E. coli* and *E. faecalis* will be analysed. The log change is calculated from the original measured bacteria concentration from the faecal table and the measured value after co-incubation. and shows how many 10 log the bacterial concentration is reduced
-
-To test the collected data for normal distribution we will make a qq-plot and a shapiro test
+In this section, the bacterial log-change for *E. coli* and *E. faecalis* will be analyzed. This log-change is calculated from the initial bacterial concentration measured in the fecal samples and the concentration measured after co-incubation, indicating the log10​ reduction in bacterial concentration. This normalization is necessary due to varying initial bacterial concentrations in the starting substrate. To test the collected data for normal distribution, a Q-Q plot and a Shapiro-Wilk test is used.
 
 ```{r}
 #| echo: false
@@ -246,7 +246,7 @@ shapiro_enterococcus|>
 
 ```
 
-The Shapiro test [@tbl-6] and the Q-Q plots [@fig-5] showing that the created log change data for *E. coli* and *E. faecalis*[@tbl-7]and [@fig-6] is normal distributed. This normal distribution allows to use an ANOVA for the data analysis and a Tukey post-hoc analysis to test between different pairs.
+The Shapiro test [@tbl-6] and the Q-Q plots [@fig-5] showing that the created log change data for *E. coli* and *E. faecalis* [@tbl-7] and [@fig-6] is normal distributed. This normal distribution allows to use a parametric test. To analyse bacterial log change an ANOVA was used and a Tukey post-hoc analysis to test between different treatment pairs.
 
 ```{r}
 #| label: fig-6
@@ -363,10 +363,14 @@ ggplot(log_change_both, aes(x = species, y = log_change, fill = bacteria)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), panel.grid.major = element_blank())
 ```
 
-In the created data set there are significant differences in *E. coli* and *E. faecalis* log change between the groups p \<0.05 [@tbl-8] and [@tbl-11]. The Tukey post-hoc analysis for *E. coli* [@tbl-9] shows that the fungal treatment using *P. ostreatus* and *C. comatus* are significantly different to the control and the faecal isolate 1. While the control and faecal isolate one are not different to each other. For *E. faecalis* the *P. ostreatus* is significant higher compared to all the other treatments while the other treatment s are not different to each other [@tbl-11].
+Within the generated dataset, statistically significant differences (p\<0.05) in the log-change of both *E. coli* and *E. faecalis* were observed across the experimental groups [@tbl-8].
+
+A subsequent Tukey post-hoc analysis for *E. coli* [@tbl-9]) indicated that fungal interventions utilizing *P. ostreatus* and *C. comatus* produced significantly distinct log-change values when compared to the control and fecal isolate 1. In contrast, no significant difference was detected between the control and fecal isolate 1.
+
+For *E. faecalis*, the treatment involving *P. ostreatus* demonstrated a significantly greater log-change in bacterial concentration relative to all other treatments, with no significant differences found among the remaining experimental groups [@tbl-11].
 
 # Conclusions
 
-The produced data structure and scripts can be used on the test data set, to visualize mean growth speed differences between species and log-change of bacterial concentrations before and after fungal growth. The statistical tests ANOVA and Tukey can be used to test normal distributed data while Kruskal -Wallis and Dunn test can be used for the not normal distributed data. To test the script on the real collected data might need some adptions due to improvements that have to be done on the assay.
+The developed data structure and scripts can be applied to the test dataset to visualize differences in mean growth speed among species and the log-change in bacterial concentrations before and after fungal growth. For statistical analysis, ANOVA and Tukey's post-hoc test are suitable for normally distributed data, while the Kruskal-Wallis and Dunn's tests are appropriate for non-normally distributed data. Applying these scripts to the actual collected data may require some adaptations, primarily due to necessary modifications in the assay methodology.
 
 # References

@@ -1,0 +1,13 @@
+id_inoc,species,material,material_2,mass,production_date,forming_date
+1,Control,corn cobs,oatbran 10%,1.5,2025-03-14T00:00:00Z,2025-04-23T00:00:00Z
+2,C.comatus,wood chips,oatbran 10%,1.5,2025-03-13T00:00:00Z,2025-04-23T00:00:00Z
+3,P.ostreatus v. Floridae,corn cobs,oatbran 10%,1.5,2025-03-14T00:00:00Z,2025-04-23T00:00:00Z
+4,faecal isolate 1,wood chips,oatbran 2%,1.5,2025-03-14T00:00:00Z,2025-03-31T00:00:00Z
+5,P.ostreatus v. Floridae,wood chips,oatbran 10%,1.5,2025-03-14T00:00:00Z,2025-04-17T00:00:00Z
+6,P. ostreatus v. Floridae,wood chips,oatbran 10%,1.5,2025-03-14T00:00:00Z,2025-04-17T00:00:00Z
+7,C. comatus,corn cobs,oatbran 10%,1.5,2025-03-14T00:00:00Z,2025-04-17T00:00:00Z
+8,P. ostreatus v. Floridae,corn cobs,oatbran 10%,1.5,2025-03-24T00:00:00Z,2025-04-23T00:00:00Z
+9,C. comatus,corn cobs,oatbran 10%,1.5,2025-03-14T00:00:00Z,2025-04-23T00:00:00Z
+10,P. ostreatus v. Floridae,corn cobs,oatbran 10%,1.5,2025-05-14T00:00:00Z,2025-05-15T00:00:00Z
+11,P. ostreatus v. Floridae,wood chips,oatbran 10%,1.5,2025-05-14T00:00:00Z,2025-05-15T00:00:00Z
+12,P. ostreatus v. Floridae,control,control,1.5,2025-05-14T00:00:00Z,2025-05-15T00:00:00Z

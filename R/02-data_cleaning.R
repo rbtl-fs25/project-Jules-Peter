@@ -6,8 +6,15 @@
 library("tidyverse")
 library("googlesheets4")
 
+### Loading data from data/raw
+bacteria_1_1 <- read_csv("data/raw/bacteria_1_1.csv")
+experiment_1_1 <- read_csv("data/raw/experiment_1_1.csv")
+faeces_1_1 <- read_csv("data/raw/faeces_1_1.csv")
+growth_speed_1_1 <- read_csv("growth_speed_1_1.csv")
+inoculum_1_1 <- read_csv("data/raw/inoculum_1_1.csv")
+
+
 ######## Formatting the growth speed data showing are size change for each day#########
-glimpse(growth_speed_1_1)
 
 growth_speed_transformed <- growth_speed_1_1 |>
 ### Adding dpi calculated from starting date and picture date
@@ -72,7 +79,7 @@ group_by(species)|>  # Group by species
 
 ### For mean growth speed and dependence on incoulum age and substrate 
 growth_speed_analysis <- exp_growth_speed_inoculum_faeces|>
-  select(species, material, inoculum_age, mean_growth_speed)
+  select(id_treatment, species, material, inoculum_age, mean_growth_speed)
 glimpse(growth_speed_analysis)
 
 

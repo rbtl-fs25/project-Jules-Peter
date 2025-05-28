@@ -1,0 +1,17 @@
+Dict,Description
+df_bacterial_ analysis,df that stores the data prepared for bacterial analysis
+id_treatment,unique id for the specific replicate using a certain treatment
+species,Fungal spe cies used or control no fungus inoculated
+cfu_ecoli_end,colony formingunits of E. coli after co-incubation
+cfu_enterococcus_end,colony forming units of E. faecalis after co-incubation
+cfu_ecoli_start,colony forming units of E. coli before co-incubation
+cfu_enterococcus_start,colony forming units of E. faecalis beforer co-incubation
+log_change_ecoli,log 10 change of E.coli cfu before and after fungal co-incubation
+log_change_enterococcus,log 10 change of E.faecalis cfu before and after fungal co-incubation
+NA,NA
+df_growth_speed_ analysis,df that stores the data prepared for mean growth speed analysis
+id_treatment,unique id for the specific replicate using a certain treatment
+species,Fungal species used
+material,Material used as inoculum
+inoculum_age,How long was the inoculum incubated before application
+mean_growth_speed,Mean growth speed in cm2/day
