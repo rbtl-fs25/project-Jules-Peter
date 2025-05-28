@@ -17,7 +17,7 @@ dictionary <- read_sheet("https://docs.google.com/spreadsheets/d/1k_oQYACYyO3VeU
 write_csv(bacteria_1_1, "data/raw/bacteria_1_1.csv")
 write_csv(experiment_1_1, "data/raw/experiment_1_1.csv")
 write_csv(faeces_1_1, "data/raw/faeces_1_1.csv")
-write_csv(growth_speed_1_1, "growth_speed_1_1.csv")
+write_csv(growth_speed_1_1, "data/raw/growth_speed_1_1.csv")
 write_csv(inoculum_1_1, "data/raw/inoculum_1_1.csv")
 write_csv(dictionary, "data/processed/dictionary")
 
