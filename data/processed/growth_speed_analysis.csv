@@ -1,46 +1,46 @@
-species,material,inoculum_age,mean_growth_speed
-Control,corn cobs,48,0
-Control,corn cobs,48,0
-Control,corn cobs,48,0
-C.comatus,wood chips,49,4.039289360608878
-C.comatus,wood chips,49,2.0090572531174877
-C.comatus,wood chips,49,1.2548682479061726
-P.ostreatus v. Floridae,corn cobs,48,0.3946625771072178
-P.ostreatus v. Floridae,corn cobs,48,3.4871678454846706
-P.ostreatus v. Floridae,corn cobs,48,0.5969026041820605
-faecal isolate 1,wood chips,48,4.821472058634336
-faecal isolate 1,wood chips,48,0.22776546738525993
-faecal isolate 1,wood chips,48,3.0021844795867465
-P.ostreatus v. Floridae,wood chips,48,1.7592918860102837
-P.ostreatus v. Floridae,wood chips,48,4.821472058634336
-P.ostreatus v. Floridae,wood chips,48,0.9215338450530058
-Control,corn cobs,59,3.7140606482439322
-Control,corn cobs,59,0.6981317007977318
-Control,corn cobs,59,0.3946625771072178
-C.comatus,wood chips,60,3.4871678454846706
-C.comatus,wood chips,60,0.5969026041820605
-C.comatus,wood chips,60,4.821472058634336
-P.ostreatus v. Floridae,corn cobs,59,0.22776546738525993
-P.ostreatus v. Floridae,corn cobs,59,3.0021844795867465
-P.ostreatus v. Floridae,corn cobs,59,1.7592918860102837
-faecal isolate 1,wood chips,59,4.821472058634336
-faecal isolate 1,wood chips,59,1.1074114103904023
-faecal isolate 1,wood chips,59,4.563163329339175
-P.ostreatus v. Floridae,wood chips,59,0.8344855486097889
-P.ostreatus v. Floridae,wood chips,59,0.3946625771072178
-P.ostreatus v. Floridae,wood chips,59,3.4871678454846706
-Control,corn cobs,66,0.5969026041820605
-Control,corn cobs,66,4.821472058634336
-Control,corn cobs,66,0.22776546738525993
-C.comatus,wood chips,67,3.0021844795867465
-C.comatus,wood chips,67,1.7592918860102837
-C.comatus,wood chips,67,4.821472058634336
-P.ostreatus v. Floridae,corn cobs,66,0.9215338450530058
-P.ostreatus v. Floridae,corn cobs,66,3.7140606482439322
-P.ostreatus v. Floridae,corn cobs,66,0.6981317007977318
-faecal isolate 1,wood chips,66,0.33510321638291135
-faecal isolate 1,wood chips,66,2.848377339254746
-faecal isolate 1,wood chips,66,0.5026548245743669
-P.ostreatus v. Floridae,wood chips,66,4.691445029360758
-P.ostreatus v. Floridae,wood chips,66,0.19547687622336493
-P.ostreatus v. Floridae,wood chips,66,3.2672563597333855
+id_treatment,species,material,inoculum_age,mean_growth_speed
+1,Control,corn cobs,48,0
+2,Control,corn cobs,48,0
+3,Control,corn cobs,48,0
+4,C.comatus,wood chips,49,4.039289360608878
+5,C.comatus,wood chips,49,2.0090572531174877
+6,C.comatus,wood chips,49,1.2548682479061726
+7,P.ostreatus v. Floridae,corn cobs,48,0.3946625771072178
+8,P.ostreatus v. Floridae,corn cobs,48,3.4871678454846706
+9,P.ostreatus v. Floridae,corn cobs,48,0.5969026041820605
+10,faecal isolate 1,wood chips,48,4.821472058634336
+11,faecal isolate 1,wood chips,48,0.22776546738525993
+12,faecal isolate 1,wood chips,48,3.0021844795867465
+13,P.ostreatus v. Floridae,wood chips,48,1.7592918860102837
+14,P.ostreatus v. Floridae,wood chips,48,4.821472058634336
+15,P.ostreatus v. Floridae,wood chips,48,0.9215338450530058
+16,Control,corn cobs,59,3.7140606482439322
+17,Control,corn cobs,59,0.6981317007977318
+18,Control,corn cobs,59,0.3946625771072178
+19,C.comatus,wood chips,60,3.4871678454846706
+20,C.comatus,wood chips,60,0.5969026041820605
+21,C.comatus,wood chips,60,4.821472058634336
+22,P.ostreatus v. Floridae,corn cobs,59,0.22776546738525993
+23,P.ostreatus v. Floridae,corn cobs,59,3.0021844795867465
+24,P.ostreatus v. Floridae,corn cobs,59,1.7592918860102837
+25,faecal isolate 1,wood chips,59,4.821472058634336
+26,faecal isolate 1,wood chips,59,1.1074114103904023
+27,faecal isolate 1,wood chips,59,4.563163329339175
+28,P.ostreatus v. Floridae,wood chips,59,0.8344855486097889
+29,P.ostreatus v. Floridae,wood chips,59,0.3946625771072178
+30,P.ostreatus v. Floridae,wood chips,59,3.4871678454846706
+31,Control,corn cobs,66,0.5969026041820605
+32,Control,corn cobs,66,4.821472058634336
+33,Control,corn cobs,66,0.22776546738525993
+34,C.comatus,wood chips,67,3.0021844795867465
+35,C.comatus,wood chips,67,1.7592918860102837
+36,C.comatus,wood chips,67,4.821472058634336
+37,P.ostreatus v. Floridae,corn cobs,66,0.9215338450530058
+38,P.ostreatus v. Floridae,corn cobs,66,3.7140606482439322
+39,P.ostreatus v. Floridae,corn cobs,66,0.6981317007977318
+40,faecal isolate 1,wood chips,66,0.33510321638291135
+41,faecal isolate 1,wood chips,66,2.848377339254746
+42,faecal isolate 1,wood chips,66,0.5026548245743669
+43,P.ostreatus v. Floridae,wood chips,66,4.691445029360758
+44,P.ostreatus v. Floridae,wood chips,66,0.19547687622336493
+45,P.ostreatus v. Floridae,wood chips,66,3.2672563597333855
